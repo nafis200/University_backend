@@ -4,8 +4,6 @@ import fs from 'fs/promises';
 type TableData = Record<string, Record<string, any>[]>;
 
 
-
-
 const parseSQLFile = async (filePath: string): Promise<TableData> => {
   const fileContent = await fs.readFile(filePath, 'utf16le');
 

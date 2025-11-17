@@ -5,7 +5,7 @@ CREATE TABLE GSTApplicantInformation (
     GSTApplicationId BIGINT PRIMARY KEY,
     GSTRoll VARCHAR(20),
     Unit VARCHAR(10),
-    Merit INT
+    Merit BIGINT -- JSON-এ string হিসেবে এসেছে তাই বড় int ভালো
 );
 
 -- ===============================
@@ -84,7 +84,7 @@ CREATE TABLE FinalAdmit (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     GSTApplicationId BIGINT,
     FinalClearenceStatus VARCHAR(50),
-    FinalAdmitTime DATETIME,
+    FinalAdmitTime DATETIME, -- JSON date string insert করার আগে proper DATETIME format এ convert করতে হবে
     FOREIGN KEY (GSTApplicationId) REFERENCES GSTApplicantInformation(GSTApplicationId)
 );
 
@@ -110,19 +110,6 @@ CREATE TABLE GuardianInfo (
 );
 
 -- ===============================
--- Table: Login
--- ===============================
-CREATE TABLE Login (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
-    Email VARCHAR(100),
-    Password VARCHAR(100),
-    UnitName VARCHAR(10),
-    Role VARCHAR(50),
-    Faculty VARCHAR(100) NULL,
-    isDeleted BIT DEFAULT 0
-);
-
--- ===============================
 -- Table: student_photos
 -- ===============================
 CREATE TABLE student_photos (
@@ -135,16 +122,26 @@ CREATE TABLE student_photos (
     selfie VARCHAR(255)
 );
 
+-- ===============================
+-- Table: Login
+-- ===============================
+CREATE TABLE Login (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Email VARCHAR(100),
+    Password VARCHAR(100),
+    UnitName VARCHAR(10),
+    Role VARCHAR(50),
+    Faculty VARCHAR(100) NULL,
+    isDeleted BIT DEFAULT 0
+);
 
 
+<!-- 5 Role -->
 
-
-
-
-
-
-
-
-
-
-
+Role
+Admin	
+Dean	
+Faculty	
+Student	
+GirlsHall	
+BoysHall	
