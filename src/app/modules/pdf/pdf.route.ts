@@ -1,9 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
+import { generatePDF } from "./pdf.controller";
 
-import { AdminController } from "./pdf.controller";
 
 const router = express.Router();
 
-router.get("/", AdminController.generatePDF);
+router.get("/", generatePDF);
 
-export const AdminRoutes = router;
+export const PdfRoutes = router;

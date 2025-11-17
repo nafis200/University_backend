@@ -3,17 +3,15 @@ import { htmlContent } from "./HtmlPdfGenerator";
 import { PDfService } from "./pdf.service";
 import { realPdf } from "./pdfData";
 
+
 export const generatePDF = async (req: Request, res: Response) => {
   try {
-    const userData = realPdf; 
-    const html = htmlContent(userData); 
+    const html = htmlContent(realPdf);
     const pdfBuffer = await PDfService.generatePDFBuffer(html);
 
-    res.set({
-      "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename="AdmissionForm.pdf"`,
-      "Content-Length": pdfBuffer.length,
-    });
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", 'attachment; filename="AdmissionForm.pdf"');
+    res.setHeader("Content-Length", pdfBuffer.length.toString());
 
     res.send(pdfBuffer);
   } catch (error) {
@@ -25,5 +23,3 @@ export const generatePDF = async (req: Request, res: Response) => {
     });
   }
 };
-
-export const AdminController = { generatePDF };

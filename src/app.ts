@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import { userRoute } from './app/modules/User/user.routes';
 import { AdminRoutes } from './app/modules/Admin/admin.route';
 import { fileRoute } from './app/modules/FileUpload/file.route';
+import { PdfRoutes } from './app/modules/pdf/pdf.route';
 
 const app:Application = express()
 app.use(cors());
@@ -19,5 +20,6 @@ app.get('/', (req, res) => {
 app.use('/api/user',userRoute)
 app.use('/api/admin',AdminRoutes)
 app.use('/api/file',fileRoute)
+app.use('/api/pdf',PdfRoutes)
 
 export default app;
