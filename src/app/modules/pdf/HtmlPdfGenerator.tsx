@@ -78,30 +78,40 @@ export const htmlContent = (data: any): string => {
     </div>
 
     <!-- Recommendation Boxes -->
-    <div class="grid-cols-4 mt-6 text-center">
-      ${[
-        "সমন্বয়কারীর সুপারিশ",
-        "প্রোভোস্টের সুপারিশ",
-        "যাচাইকৃত",
-        "ভর্তি করুন",
-      ]
-        .map(
-          (title, i) => `
-        <div class="border p-4" style="height:140px; font-size:14px; font-weight:bold;">
-          <div>{${title}}<br />(${
-            [
-              "Coordinator's recommendation",
-              "Provost's recommendation",
-              "Verified",
-              "Admit",
-            ][i]
-          })</div>
-          <div class="mt-10">(স্বাক্ষর ও সিল)</div>
-        </div>
-      `
-        )
-        .join("")}
-    </div>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; text-align: center;">
+
+  ${["সমন্বয়কারীর সুপারিশ", "প্রোভোস্টের সুপারিশ", "যাচাইকৃত", "ভর্তি করুন"]
+    .map((title, i) => {
+      const eng = [
+        "Coordinator's recommendation",
+        "Provost's recommendation",
+        "Verified",
+        "Admit",
+      ][i];
+
+      const topPadding =
+        eng === "Verified" || eng === "Admit" ? "padding-top: 12px;" : "";
+
+      return `
+          <div style="
+            border: 1px solid #000;
+            padding: 16px;
+            height: 200px;
+            font-size: 14px;
+            font-weight: bold;
+          ">
+            <div style="${topPadding}">
+              {${title}}<br>(${eng})
+            </div>
+
+            <div>(স্বাক্ষর ও সিল)</div>
+          </div>
+        `;
+    })
+    .join("")}
+
+</div>
+
 
     <!-- Form Fields -->
     <div class="mt-6" style="line-height:1.8; font-size:16px;">
@@ -145,7 +155,7 @@ export const htmlContent = (data: any): string => {
       </p>
     </div>
 
-    <p class="text-right mt-8" style="font-size:12px;">Page 1 of 4</p>
+    <p class="text-right mt-8" style="font-size:16px;">Page 1 of 4</p>
   </div>
 
   <!-- Page 2 -->
@@ -185,13 +195,15 @@ export const htmlContent = (data: any): string => {
       </tbody>
     </table>
     <!-- Remaining fields like 8-19 also wrapped in dynamic-data span -->
-    <p class="mt-4">{8.} ৮। ছাত্রাবস্থায় পড়াশোনা বন্ধ থাকলে কারণ (Reason for study break): 
+ 
+
+ <div style="line-height:1.8; font-size:16px;">
+    <p class="mt-4">৮। ছাত্রাবস্থায় পড়াশোনা বন্ধ থাকলে কারণ (Reason for study break): 
   <span class="dynamic-data">${
     data.StudyBreakCause || "..................................."
   }</span>
 </p>
-
-<p>৯। ইতিমধ্যেই ভর্তি প্রতিষ্ঠান (Institution already admitted): 
+ <p>৯। ইতিমধ্যেই ভর্তি প্রতিষ্ঠান (Institution already admitted): 
   <span class="dynamic-data">${
     data.AlreadyAdmittedInstitutio || "..................................."
   }</span>
@@ -257,218 +269,296 @@ export const htmlContent = (data: any): string => {
   }</span>
 </p>
 
+ </div>
     <p class="text-right mt-8">Page 2 of 4</p>
   </div>
   
-  <div class="page" style="width:100%; padding:24px; box-sizing:border-box; font-size:14px; line-height:1.6;">
+  <div class="page" style="width:100%; padding:24px; box-sizing:border-box; font-size:16px; line-height:1.7;">
 
-  <div>
-    ২০। স্থায়ী ঠিকানা : গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number): 
+  <!-- Permanent Address -->
+  <div style="margin-bottom:28px;">
+    ২০। স্থায়ী ঠিকানা: গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):
     <span class="dynamic-data">${
       data.Village ||
       "............................................................."
-    }</span>;  
+    }</span>
     <br />
-    পোস্ট অফিস (Post office): <span class="dynamic-data">${
+
+    পোস্ট অফিস (Post office):
+    <span class="dynamic-data">${
       data.PostOffice || "................................................."
-    }</span>;  
-    পোস্ট কোড/Zip code: <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; পোস্ট কোড/Zip code:
+    <span class="dynamic-data">${
       data.PostCode || "..................................................."
-    }</span>;  
+    }</span>
     <br />
-    থানা (Thana): <span class="dynamic-data">${
+
+    থানা (Thana):
+    <span class="dynamic-data">${
       data.Thana ||
       "............................................................."
-    }</span>;  
-    জেলা (District): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; জেলা (District):
+    <span class="dynamic-data">${
       data.District ||
       "........................................................"
-    }</span>;  
+    }</span>
     <br />
-    দেশ (Country): <span class="dynamic-data">${
+
+    দেশ (Country):
+    <span class="dynamic-data">${
       data.Country ||
       "....................................................................................................................."
-    }</span>  
+    }</span>
     <br /><br />
-    শিক্ষার্থীর জাতীয় পরিচয়পত্র/জন্ম সনদ/পাসপোর্ট নাম্বার (Student’s NID/Birth reg./Passport number):  
+
+    শিক্ষার্থীর জাতীয় পরিচয়পত্র/জন্ম সনদ/পাসপোর্ট নম্বর (Student’s NID/Birth reg./Passport number):
     <span class="dynamic-data">${
       data.NID ||
       "....................................................................................................................."
     }</span>
   </div>
 
-  <div style="margin-top:24px;">
-    ২১। বর্তমান ঠিকানা (Present address):  
+  <!-- Present Address -->
+  <div style="margin-bottom:28px;">
+    ২১। বর্তমান ঠিকানা (Present address):
     <span class="dynamic-data">${
       data.PresentAddress ||
       "........................................................................................................................................................................"
-    }</span>  
-    <br />
-    ........................................................................................................................................................................
+    }</span>
   </div>
 
-  <div style="margin-top:24px;">
-    ২২। অভিভাবকের নাম (Guardian’s name):  
+  <!-- Guardian -->
+  <div style="margin-bottom:28px;">
+    ২২। অভিভাবকের নাম (Guardian’s name):
     <span class="dynamic-data">${
       data.GuardianName ||
       "....................................................................................................................."
-    }</span>  
+    }</span>
     <br />
-    পেশা (Occupation): <span class="dynamic-data">${
+
+    পেশা (Occupation):
+    <span class="dynamic-data">${
       data.GuardianOccupation || "............................................."
-    }</span>;  
-    মাসিক আয় (Monthly income): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; মাসিক আয় (Monthly income):
+    <span class="dynamic-data">${
       data.GuardianMonthlyIncome ||
       "............................................................"
-    }</span>;  
+    }</span>
     <br />
-    সম্পর্ক (Relation): <span class="dynamic-data">${
+
+    সম্পর্ক (Relation):
+    <span class="dynamic-data">${
       data.GuardianRelation ||
       ".............................................................."
-    }</span>;  
-    ঠিকানা (Address): গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):  
+    }</span>
+    <br />
+
+    ঠিকানা (Address): গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):
     <span class="dynamic-data">${
       data.GuardianVillage ||
       "........................................................."
-    }</span>;  
+    }</span>
     <br />
-    পোস্ট অফিস (Post office): <span class="dynamic-data">${
+
+    পোস্ট অফিস (Post office):
+    <span class="dynamic-data">${
       data.GuardianPostOffice ||
       "................................................."
-    }</span>;  
-    পোস্ট কোড/Zip code: <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; পোস্ট কোড/Zip code:
+    <span class="dynamic-data">${
       data.GuardianPostCode || "............................."
-    }</span>;  
-    থানা (Thana): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; থানা (Thana):
+    <span class="dynamic-data">${
       data.GuardianThana || "..................................."
-    }</span>;  
-    জেলা (District): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; জেলা (District):
+    <span class="dynamic-data">${
       data.GuardianDistrict || "..............................."
-    }</span>;  
+    }</span>
     <br />
-    দেশ (Country): <span class="dynamic-data">${
+
+    দেশ (Country):
+    <span class="dynamic-data">${
       data.GuardianCountry ||
       "..................................................."
-    }</span>;  
-    মোবাইল নম্বর (Mobile number): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; মোবাইল নম্বর (Mobile number):
+    <span class="dynamic-data">${
       data.GuardianPhone ||
       "............................................................"
-    }</span>;  
+    }</span>
     <br />
-    জাতীয় পরিচয়পত্রের নম্বর (NID number): <span class="dynamic-data">${
+
+    জাতীয় পরিচয়পত্রের নম্বর (NID number):
+    <span class="dynamic-data">${
       data.GuardianNID ||
       "....................................................................................................................."
     }</span>
   </div>
 
-  <div style="margin-top:24px;">
-    ২৩। পিতার অনুপস্থিতি আইনি অভিভাবকের নাম (Legal guardian’s name in absence of father):  
+  <!-- Legal Guardian -->
+  <div style="margin-bottom:28px;">
+    ২৩। পিতার অনুপস্থিতি আইনি অভিভাবকের নাম (Legal guardian’s name in absence of father):
     <span class="dynamic-data">${
       data.LegalGuardianName ||
       ".................................................................................."
-    }</span>  
+    }</span>
     <br />
-    পেশা (Profession): <span class="dynamic-data">${
+
+    পেশা (Profession):
+    <span class="dynamic-data">${
       data.LegalGuardianOccupation ||
       "....................................................."
-    }</span>;  
-    মাসিক আয় (Monthly income): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; মাসিক আয় (Monthly income):
+    <span class="dynamic-data">${
       data.LegalGuardianIncome ||
       ".................................................."
-    }</span>;  
+    }</span>
     <br />
-    সম্পর্ক (Relation): <span class="dynamic-data">${
+
+    সম্পর্ক (Relation):
+    <span class="dynamic-data">${
       data.LegalGuardianRelation ||
       "..........................................................................................................."
-    }</span>;  
+    }</span>
     <br />
-    ঠিকানা (Address): গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):  
+
+    ঠিকানা (Address): গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):
     <span class="dynamic-data">${
       data.LegalGuardianVillage ||
       ".............................................."
-    }</span>;  
-    পোস্ট অফিস (Post office): <span class="dynamic-data">${
+    }</span>
+    <br />
+
+    পোস্ট অফিস (Post office):
+    <span class="dynamic-data">${
       data.LegalGuardianPostOffice ||
       ".............................................."
-    }</span>;  
+    }</span>
     <br />
-    পোস্ট কোড/Zip code: <span class="dynamic-data">${
+
+    পোস্ট কোড/Zip code:
+    <span class="dynamic-data">${
       data.LegalGuardianPostCode || ".............................."
-    }</span>;  
-    থানা (Thana): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; থানা (Thana):
+    <span class="dynamic-data">${
       data.LegalGuardianThana || "...................................."
-    }</span>;  
-    জেলা (District): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; জেলা (District):
+    <span class="dynamic-data">${
       data.LegalGuardianDistrict || "...................................."
-    }</span>;  
+    }</span>
     <br />
-    দেশ (Country): <span class="dynamic-data">${
+
+    দেশ (Country):
+    <span class="dynamic-data">${
       data.LegalGuardianCountry ||
       "...................................................."
-    }</span>;  
-    মোবাইল নম্বর (Mobile number): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; মোবাইল নম্বর (Mobile number):
+    <span class="dynamic-data">${
       data.LegalGuardianPhone ||
       "..................................................."
-    }</span>;  
+    }</span>
     <br />
-    জাতীয় পরিচয়পত্রের নম্বর (NID number): <span class="dynamic-data">${
+
+    জাতীয় পরিচয়পত্রের নম্বর (NID number):
+    <span class="dynamic-data">${
       data.LegalGuardianNID ||
       "....................................................................................................................."
     }</span>
   </div>
 
-  <div style="margin-top:24px;">
-    ২৪। স্থানীয় অভিভাবকের নাম (Local guardian’s name):  
+  <!-- Local Guardian -->
+  <div style="margin-bottom:28px;">
+    ২৪। স্থানীয় অভিভাবকের নাম (Local guardian’s name):
     <span class="dynamic-data">${
       data.LocalGuardianName ||
       "........................................................................................................................"
-    }</span>  
+    }</span>
     <br />
-    সম্পর্ক (Relation): <span class="dynamic-data">${
+
+    সম্পর্ক (Relation):
+    <span class="dynamic-data">${
       data.LocalGuardianRelation ||
       "........................................................."
-    }</span>;  
-    স্থায়ী ঠিকানা (Permanent address):  
-    গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):  
+    }</span>
+    <br />
+
+    স্থায়ী ঠিকানা (Permanent address) — গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):
     <span class="dynamic-data">${
       data.LocalGuardianVillage ||
       "...................................................."
-    }</span>;  
+    }</span>
     <br />
-    পোস্ট অফিস (Post office): <span class="dynamic-data">${
+
+    পোস্ট অফিস (Post office):
+    <span class="dynamic-data">${
       data.LocalGuardianPostOffice ||
       ".............................................."
-    }</span>;  
-    পোস্ট কোড/Zip code: <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; পোস্ট কোড/Zip code:
+    <span class="dynamic-data">${
       data.LocalGuardianPostCode || "................................."
-    }</span>;  
-    থানা (Thana): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; থানা (Thana):
+    <span class="dynamic-data">${
       data.LocalGuardianThana || "........................................."
-    }</span>;  
-    জেলা (District): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; জেলা (District):
+    <span class="dynamic-data">${
       data.LocalGuardianDistrict || "........................................."
-    }</span>;  
+    }</span>
     <br />
-    দেশ (Country): <span class="dynamic-data">${
+
+    দেশ (Country):
+    <span class="dynamic-data">${
       data.LocalGuardianCountry ||
       "....................................................."
-    }</span>;  
-    মোবাইল নম্বর (Mobile number): <span class="dynamic-data">${
+    }</span>
+
+    &nbsp;&nbsp; মোবাইল নম্বর (Mobile number):
+    <span class="dynamic-data">${
       data.LocalGuardianPhone ||
       "....................................................."
-    }</span>;  
+    }</span>
     <br />
-    জাতীয় পরিচয়পত্রের নম্বর (NID number): <span class="dynamic-data">${
+
+    জাতীয় পরিচয়পত্রের নম্বর (NID number):
+    <span class="dynamic-data">${
       data.LocalGuardianNID ||
       "....................................................................................................................."
     }</span>
   </div>
 
-  <p class="text-right" style="margin-top:32px; font-size:12px;">Page 3 of 4</p>
+  <p class="text-right" style="font-size:16px;">Page 3 of 4</p>
+
 </div>
 
+
     <!-- Page 4 -->
-    <div class="page">
+    <div class="page" style="font-size:16px;">
       <h2 class="text-center font-bold text-xl mb-2">অঙ্গীকারনামা</h2>
       <h3 class="text-center font-semibold text-lg mb-4">(Commitment Statement)</h3>
       <p class="mb-4">আমি এই মর্মে অঙ্গীকার করছি যে, যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়ের শিক্ষার্থী থাকাকালীন আমি বিশ্ববিদ্যালয় ও সংযুক্ত হলের আইন মেনে চলব এবং শৃঙ্খলা পরিপন্থী কোনো কর্মকাণ্ডে লিপ্ত হব না। আমি সত্যিই এই ফরম পূরণ করেছি এবং এতে লিখিত তথ্যাবলী সত্য। আমি আরো অঙ্গীকার করছি যে, বিশ্ববিদ্যালয়ের শিক্ষার্থী থাকাকালীন আমার শিক্ষা ও আচরণগত ব্যাপারে যথাযথ কর্তৃপক্ষের সিদ্ধান্তকে সর্বদা সম্মান জানাব এবং সকল ফিস নির্ধারিত সময়ে পরিশোধ করব। কোনোরূপ কারণে এই অঙ্গীকার ভঙ্গ করলে বা কোনো তথ্য প্রদান করতে গিয়ে আমার কোনো ভুলের জন্য বিশ্ববিদ্যালয় কর্তৃপক্ষ কর্তৃক গৃহীত যে কোনো শাস্তিমূলক ব্যবস্থা আমি মেনে নিতে বাধ্য থাকব।</p>
@@ -495,7 +585,7 @@ export const htmlContent = (data: any): string => {
       <p class="text-center">ভর্তিকৃত শিক্ষার্থীদের আচরণ বিশ্ববিদ্যালয়ের রিজেন্ট বোর্ড কর্তৃক প্রণীত “Student’s Code of Conducts” এর বিধি-বিধান দ্বারা নিয়ন্ত্রিত হবে।</p>
       <p class="text-center italic">Nota bene: The conducts of the admitted students shall be regulated by the ‘Student’s Code of Conducts’ formulated and approved by the Regent Board of the University.</p>
 
-      <p class="text-center mt-6">Page 4 of 4</p>
+      <p class="text-right mt-6">Page 4 of 4</p>
     </div>
 
   </body>
