@@ -167,9 +167,7 @@ export const htmlContent = (data: any): string => {
         <tr>
           <td>SSC/Equivalent</td>
           <td><span>${data.SSCBoard || ""}</span></td>
-          <td><span>${
-            data.SSCInstitution || ""
-          }</span></td>
+          <td><span>${data.SSCInstitution || ""}</span></td>
           <td><span>${data.SSCYear || ""}</span></td>
           <td><span>${data.SSCRoll || ""}</span></td>
           <td><span>${data.SSCGpa || ""}</span></td>
@@ -178,9 +176,7 @@ export const htmlContent = (data: any): string => {
         <tr>
           <td>HSC/Equivalent</td>
           <td><span>${data.HSCBoard || ""}</span></td>
-          <td><span>${
-            data.HSCInstitution || ""
-          }</span></td>
+          <td><span>${data.HSCInstitution || ""}</span></td>
           <td><span>${data.HSCYear || ""}</span></td>
           <td><span>${data.HSCRoll || ""}</span></td>
           <td><span>${data.HSCGpa || ""}</span></td>
@@ -189,42 +185,77 @@ export const htmlContent = (data: any): string => {
       </tbody>
     </table>
     <!-- Remaining fields like 8-19 also wrapped in dynamic-data span -->
-    <p class="mt-4">{৮। ছাত্রাবস্থায় পড়াশোনা বন্ধ থাকলে কারণ}: <span class="dynamic-data">${
-      data.StudyBreakCause || "..................................."
-    }</span></p>
-    <p>{৯। ইতিমধ্যেই ভর্তি প্রতিষ্ঠান}: <span class="dynamic-data">${
-      data.AlreadyAdmittedInstitutio || "..................................."
-    }</span></p>
-    <p>{১০। চাকরি}: <span class="dynamic-data">${
-      data.ApplicantEmployment || "..................................."
-    }</span></p>
-    <p>{১১। জন্ম তারিখ}: <span class="dynamic-data">${
-      data.Dob || "..................................."
-    }</span></p>
-    <p>{১২। লিঙ্গ}: <span class="dynamic-data">${
-      data.Gender || "..................................."
-    }</span></p>
-    <p>{১৩। বিবাহিত/অবিবাহিত}: <span class="dynamic-data">${
-      data.MaritalStatus || "..................................."
-    }</span></p>
-    <p>{১৪। ধর্ম}: <span class="dynamic-data">${
-      data.Religion || "..................................."
-    }</span></p>
-    <p>{১৫। সম্প্রদায়}: <span class="dynamic-data">${
-      data.Caste || "..................................."
-    }</span></p>
-    <p>{১৬। জাতীয়তা}: <span class="dynamic-data">${
-      data.Nationality || "..................................."
-    }</span></p>
-    <p>{১৭। মোবাইল নম্বর}: <span class="dynamic-data">${
-      data.PhoneNumber || "..................................."
-    }</span></p>
-    <p>{১৮। ই-মেইল}: <span class="dynamic-data">${
-      data.Email || "..................................."
-    }</span></p>
-    <p>{১৯। স্বীকৃত প্রতিষ্ঠান থেকে প্রাপ্ত বৃত্তি, পদক অথবা পুরস্কার}: <span class="dynamic-data">${
-      data.Scholarships || "..................................."
-    }</span></p>
+    <p class="mt-4">{8.} ৮। ছাত্রাবস্থায় পড়াশোনা বন্ধ থাকলে কারণ (Reason for study break): 
+  <span class="dynamic-data">${
+    data.StudyBreakCause || "..................................."
+  }</span>
+</p>
+
+<p>৯। ইতিমধ্যেই ভর্তি প্রতিষ্ঠান (Institution already admitted): 
+  <span class="dynamic-data">${
+    data.AlreadyAdmittedInstitutio || "..................................."
+  }</span>
+</p>
+
+<p>১০। চাকরি (Employment): 
+  <span class="dynamic-data">${
+    data.ApplicantEmployment || "..................................."
+  }</span>
+</p>
+
+<p>১১। জন্ম তারিখ (Date of birth): 
+  <span class="dynamic-data">${
+    data.Dob || "..................................."
+  }</span>
+</p>
+
+<p>১২। লিঙ্গ (Gender): 
+  <span class="dynamic-data">${
+    data.Gender || "..................................."
+  }</span>
+</p>
+
+<p>১৩। বিবাহিত/অবিবাহিত (Marital status): 
+  <span class="dynamic-data">${
+    data.MaritalStatus || "..................................."
+  }</span>
+</p>
+
+<p>১৪। ধর্ম (Religion): 
+  <span class="dynamic-data">${
+    data.Religion || "..................................."
+  }</span>
+</p>
+
+<p>১৫। সম্প্রদায় (Caste): 
+  <span class="dynamic-data">${
+    data.Caste || "..................................."
+  }</span>
+</p>
+
+<p>১৬। জাতীয়তা (Nationality): 
+  <span class="dynamic-data">${
+    data.Nationality || "..................................."
+  }</span>
+</p>
+
+<p>১৭। মোবাইল নম্বর (Mobile number): 
+  <span class="dynamic-data">${
+    data.PhoneNumber || "..................................."
+  }</span>
+</p>
+
+<p>১৮। ই-মেইল (Email): 
+  <span class="dynamic-data">${
+    data.Email || "..................................."
+  }</span>
+</p>
+
+<p>১৯। স্বীকৃত প্রতিষ্ঠান থেকে প্রাপ্ত বৃত্তি, পদক অথবা পুরস্কার (Scholarships/Awards/Medals received): 
+  <span class="dynamic-data">${
+    data.Scholarships || "..................................."
+  }</span>
+</p>
 
     <p class="text-right mt-8">Page 2 of 4</p>
   </div>
