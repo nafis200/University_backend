@@ -6,7 +6,7 @@ export const htmlContent = (data: any): string => {
     <meta charset="UTF-8" />
     <title>Admission Form</title>
     <style>
-      body { font-family: Arial, sans-serif; font-size: 14px; margin: 0; padding: 0; }
+      body { font-family: Arial, sans-serif; font-size: 14px; margin: 0; padding: 0; color:#000; }
       .page { width: 210mm; min-height: 297mm; margin: 0 auto; padding: 10mm; box-sizing: border-box; background: #fff; page-break-after: always; }
       .flex { display: flex; }
       .justify-between { justify-content: space-between; }
@@ -21,434 +21,420 @@ export const htmlContent = (data: any): string => {
       .mt-4 { margin-top: 16px; }
       .mt-6 { margin-top: 24px; }
       .mt-8 { margin-top: 32px; }
-      .grid-cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); }
-      .table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-      .table th, .table td { border: 1px solid #000; padding: 4px; text-align: center; font-size: 13px; }
-      .underline { text-decoration: underline; }
+      .mt-10 { margin-top: 40px; }
+      .grid-cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
       .font-bold { font-weight: bold; }
       .font-semibold { font-weight: 600; }
       .italic { font-style: italic; }
+      .underline { text-decoration: underline; }
+      .dynamic-data { font-weight: bold; font-size: 16px; } /* all dynamic data bold & larger */
+      .table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+      .table th, .table td { border: 1px solid #000; padding: 4px; text-align: center; font-size: 14px; }
     </style>
   </head>
   <body>
 
-    <!-- Page 1 -->
-    <div class="page">
-      <div class="flex justify-between items-start">
-        <!-- Left Photo Box -->
-        <div class="border p-2" style="width:120px; height:150px; text-align:center; font-size:12px;">
-          পাসপোর্ট সাইজের<br />১ কপি ছবি আঠা দিয়ে সংযুক্ত করুন<br />
-          (Paste a passport size photograph)
-        </div>
+  <!-- Page 1 -->
+  <div class="page p-4">
 
-        <!-- Center Logo & Title -->
-        <div class="text-center">
-          <img src="https://i.postimg.cc/Y9cT4b11/JUSTLogo.png" width="70" />
-          <p class="font-bold" style="font-size:16px;">যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়</p>
-          <p>যশোর 7408, বাংলাদেশ</p>
-          <p class="font-semibold mt-2">Jashore University of Science and Technology</p>
-          <p>Jashore 7408, Bangladesh</p>
-          <p class="font-bold underline mt-2" style="font-size:18px;">স্নাতক শিক্ষার্থী ভর্তি ফরম</p>
-          <p class="mt-1" style="font-size:15px;">Undergraduate Students Admission Form</p>
-          <p class="font-semibold mt-2">শিক্ষাবর্ষ (Session): 20___ - 20___</p>
-        </div>
-
-        <!-- Right Info Box -->
-        <div class="border p-2" style="width:180px; font-size:12px; line-height:1.4;">
-          ইউনিট (Unit): <br />
-          মেধাক্রম (Merit position): <br />
-          ক্লাস রোল (Class roll): <br />
-          শিক্ষাবর্ষ (Session): <br />
-          রেজিস্ট্রেশন নং (Reg. number):
-        </div>
+    <!-- Top Section -->
+    <div class="flex justify-between items-start">
+      <!-- Left Photo -->
+      <div class="border p-2 text-center" style="width:120px; height:150px;">
+        { পাসপোর্ট সাইজের ১ কপি ছবি আঠা দিয়ে সংযুক্ত করুন }<br/>
+        (Paste a passport size photograph)
       </div>
 
-      <!-- Recommendation Boxes -->
-      <div class="grid-cols-4 mt-6 text-center" style="font-size:12px;">
-        <div class="border p-2">সমন্বয়কারীর সুপারিশ<br />(Coordinator's recommendation)<div class="mt-4">(স্বাক্ষর ও সিল)</div></div>
-        <div class="border p-2">প্রোভোস্টের সুপারিশ<br />(Provost's recommendation)<div class="mt-4">(স্বাক্ষর ও সিল)</div></div>
-        <div class="border p-2">যাচাইকৃত<br />(Verified)<div class="mt-4">(স্বাক্ষর ও সিল)</div></div>
-        <div class="border p-2">ভর্তি করুন<br />(Admit)<div class="mt-4">(স্বাক্ষর ও সিল)</div></div>
+      <!-- Center Title -->
+      <div class="text-center">
+        <img src="https://i.postimg.cc/Y9cT4b11/JUSTLogo.png" width="70" />
+        <p class="font-bold mt-2" style="font-size:16px;">{যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়}</p>
+        <p>যশোর 7408, বাংলাদেশ</p>
+        <p class="font-semibold mt-2">Jashore University of Science and Technology</p>
+        <p>Jashore 7408, Bangladesh</p>
+        <p class="font-bold underline mt-2" style="font-size:18px;">{স্নাতক শিক্ষার্থী ভর্তি ফরম}</p>
+        <p class="mt-1" style="font-size:15px;">Undergraduate Students Admission Form</p>
+        <p class="font-semibold mt-2">{শিক্ষাবর্ষ (Session):} <span class="dynamic-data">20___ - 20___</span></p>
       </div>
 
-      <!-- Form fields -->
-      <div class="mt-6" style="font-size:14px;">
-       <p>
-  ১। শিক্ষার্থীর নাম (Student name):<br/>
-  (ক) বাংলায় (Bangla): ${
-    data.NAME_BN || ".................................................."
-  }<br/>
-  (খ) ইংরেজিতে (In English): ${
-    data.Name || ".................................................."
-  }
-</p>
-
-<p>
-  ২। পিতার নাম (Father name):<br/>
-  ${
-    data.Father ||
-    "...................................................................................."
-  }
-</p>
-
-<p>
-  ৩। মাতার নাম (Mother name):<br/>
-  ${
-    data.Mother ||
-    "...................................................................................."
-  }
-</p>
-
-<p>
-  ৪। ভর্তির বিভাগ (Admitting department):<br/>
-  ${
-    data.Department ||
-    "...................................................................................."
-  }
-</p>
-
-<p>
-  ৫। ভর্তির প্রোগ্রাম (Admitting program):<br/>
-  ${
-    data.Pogram ||
-    "...................................................................................."
-  }
-</p>
-
-<p>
-  ৬। সংযুক্ত হলের নাম (Hall attached):<br/>
-  ${
-    data.HallName ||
-    "...................................................................................."
-  }
-</p>
-
+      <!-- Right Info -->
+      <div class="border p-2" style="width:180px; line-height:1.5; font-size:12px;">
+        {ইউনিট (Unit)}: <span class="dynamic-data">${
+          data.Unit || "................................"
+        }</span><br/>
+        {মেধাক্রম (Merit position)}: <span class="dynamic-data">${
+          data.Merit || "................................"
+        }</span><br/>
+        {ক্লাস রোল (Class roll)}: <span class="dynamic-data">${
+          data.ClassRoll || "................................"
+        }</span><br/>
+        {শিক্ষাবর্ষ (Session)}: <span class="dynamic-data">${
+          data.Session || "................................"
+        }</span><br/>
+        {রেজিস্ট্রেশন নং (Reg. number)}: <span class="dynamic-data">${
+          data.RegNumber || "................................"
+        }</span>
       </div>
-
-      <p class="text-right mt-8" style="font-size:12px;">Page 1 of 4</p>
     </div>
 
-    <!-- Page 2 -->
-    <div class="page">
-      <p class="font-semibold mb-2">৭। শিক্ষাগত যোগ্যতাসমূহ (Educational qualifications):</p>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>পরীক্ষার নাম<br />(Name of exam)</th>
-            <th>বোর্ড/বিশ্ববিদ্যালয়<br />(Board/University)</th>
-            <th>শিক্ষা প্রতিষ্ঠানের নাম<br />(Institution)</th>
-            <th>পরীক্ষা পাসের সন<br />(Passing year)</th>
-            <th>পরীক্ষার রোল<br />(Roll)</th>
-            <th>প্রাপ্ত শ্রেণি/জিপিএ<br />(Class/(C)GPA)</th>
-            <th>অধ্যয়িত বিষয়সমূহ<br />(Subjects studied)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>SSC/Equivalent</td>
-            <td>${data.SSCBoard || ""}</td>
-            <td>${data.SSCInstitution || ""}</td>
-            <td>${data.SSCYear || ""}</td>
-            <td>${data.SSCRoll || ""}</td>
-            <td>${data.SSCGpa || ""}</td>
-            <td>${data.SSCSubject || ""}</td>
-          </tr>
-          <tr>
-            <td>HSC/Equivalent</td>
-            <td>${data.HSCBoard || ""}</td>
-            <td>${data.HSCInstitution || ""}</td>
-            <td>${data.HSCYear || ""}</td>
-            <td>${data.HSCRoll || ""}</td>
-            <td>${data.HSCGpa || ""}</td>
-            <td>${data.HSCSubject || ""}</td>
-          </tr>
-        </tbody>
-      </table>
-
-     <p class="mt-4">
-  ৮। ছাত্রাবস্থায় পড়াশোনা বন্ধ থাকলে কারণ (Causes for break of study, if any):<br />
-  ${
-    data.StudyBreakCause ||
-    "...................................................."
-  }
-</p>
-
-<p>
-  ৯। ইতিমধ্যেই ভর্তি প্রতিষ্ঠান (Name of the faculty/department/institution already admitted):<br />
-  ${
-    data.AlreadyAdmittedInstitutio ||
-    "...................................................."
-  }
-</p>
-
-<p>
-  ১০। চাকরি (Applicants in employment, if any):<br />
-  ${
-    data.ApplicantEmployment ||
-    "...................................................."
-  }
-</p>
-
-<p>
-  ১১। জন্ম তারিখ (Date of birth as per SSC/Equivalent certificate) (dd/mm/yyyy):<br />
-  ${data.Dob || "...................................................."}
-</p>
-
-<p>
-  ১২। লিঙ্গ (Gender - Male/Female/Transgender):<br />
-  ${data.Gender || "...................................................."}
-</p>
-
-<p>
-  ১৩। বিবাহিত/অবিবাহিত (Married/Unmarried):<br />
-  ${
-    data.MaritalStatus || "...................................................."
-  }
-</p>
-
-<p>
-  ১৪। ধর্ম (Religion):<br />
-  ${data.Religion || "...................................................."}
-</p>
-
-<p>
-  ১৫। সম্প্রদায় (Caste):<br />
-  ${data.Caste || "...................................................."}
-</p>
-
-<p>
-  ১৬। জাতীয়তা (Nationality):<br />
-  ${data.Nationality || "...................................................."}
-</p>
-
-<p>
-  ১৭। মোবাইল নম্বর (Students mobile number):<br />
-  ${data.PhoneNumber || "...................................................."}
-</p>
-
-<p>
-  ১৮। ই-মেইল (Students Email):<br />
-  ${data.Email || "...................................................."}
-</p>
-
-<p>
-  ১৯। স্বীকৃত প্রতিষ্ঠান থেকে প্রাপ্ত বৃত্তি, পদক অথবা পুরস্কার (Scholarships, medals, or prizes obtained from any recognized organization):<br />
-  ${data.Scholarships || "...................................................."}
-</p>
-
-
-      <p class="text-right mt-8">Page 2 of 4</p>
+    <!-- Recommendation Boxes -->
+    <div class="grid-cols-4 mt-6 text-center">
+      ${[
+        "সমন্বয়কারীর সুপারিশ",
+        "প্রোভোস্টের সুপারিশ",
+        "যাচাইকৃত",
+        "ভর্তি করুন",
+      ]
+        .map(
+          (title, i) => `
+        <div class="border p-4" style="height:140px; font-size:14px; font-weight:bold;">
+          <div>{${title}}<br />(${
+            [
+              "Coordinator's recommendation",
+              "Provost's recommendation",
+              "Verified",
+              "Admit",
+            ][i]
+          })</div>
+          <div class="mt-10">(স্বাক্ষর ও সিল)</div>
+        </div>
+      `
+        )
+        .join("")}
     </div>
 
-    <div class="page" style="width:100%; padding:24px; box-sizing:border-box; font-size:14px; line-height:1.6;">
+    <!-- Form Fields -->
+    <div class="mt-6" style="line-height:1.8; font-size:16px;">
+      <p>{১। শিক্ষার্থীর নাম (Student name)}:<br/>
+        (ক) {বাংলায় (Bangla)}: <span class="dynamic-data">${
+          data.NAME_BN || ".................................................."
+        }</span><br/>
+        (খ) {ইংরেজিতে (In English)}: <span class="dynamic-data">${
+          data.Name || ".................................................."
+        }</span>
+      </p>
+      <p>{২। পিতার নাম (Father name)}:<br/>
+        <span class="dynamic-data">${
+          data.Father ||
+          "...................................................................................."
+        }</span>
+      </p>
+      <p>{৩। মাতার নাম (Mother name)}:<br/>
+        <span class="dynamic-data">${
+          data.Mother ||
+          "...................................................................................."
+        }</span>
+      </p>
+      <p>{৪। ভর্তির বিভাগ (Admitting department)}:<br/>
+        <span class="dynamic-data">${
+          data.Department ||
+          "...................................................................................."
+        }</span>
+      </p>
+      <p>{৫। ভর্তির প্রোগ্রাম (Admitting program)}:<br/>
+        <span class="dynamic-data">${
+          data.Pogram ||
+          "...................................................................................."
+        }</span>
+      </p>
+      <p>{৬। সংযুক্ত হলের নাম (Hall attached)}:<br/>
+        <span class="dynamic-data">${
+          data.HallName ||
+          "...................................................................................."
+        }</span>
+      </p>
+    </div>
+
+    <p class="text-right mt-8" style="font-size:12px;">Page 1 of 4</p>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page">
+    <p class="font-semibold mb-2">{৭। শিক্ষাগত যোগ্যতাসমূহ (Educational qualifications)}:</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>পরীক্ষার নাম<br />(Name of exam)</th>
+          <th>বোর্ড/বিশ্ববিদ্যালয়<br />(Board/University)</th>
+          <th>শিক্ষা প্রতিষ্ঠানের নাম<br />(Institution)</th>
+          <th>পরীক্ষা পাসের সন<br />(Passing year)</th>
+          <th>পরীক্ষার রোল<br />(Roll)</th>
+          <th>প্রাপ্ত শ্রেণি/জিপিএ<br />(Class/(C)GPA)</th>
+          <th>অধ্যয়িত বিষয়সমূহ<br />(Subjects studied)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SSC/Equivalent</td>
+          <td><span>${data.SSCBoard || ""}</span></td>
+          <td><span>${
+            data.SSCInstitution || ""
+          }</span></td>
+          <td><span>${data.SSCYear || ""}</span></td>
+          <td><span>${data.SSCRoll || ""}</span></td>
+          <td><span>${data.SSCGpa || ""}</span></td>
+          <td><span>${data.SSCSubject || ""}</span></td>
+        </tr>
+        <tr>
+          <td>HSC/Equivalent</td>
+          <td><span>${data.HSCBoard || ""}</span></td>
+          <td><span>${
+            data.HSCInstitution || ""
+          }</span></td>
+          <td><span>${data.HSCYear || ""}</span></td>
+          <td><span>${data.HSCRoll || ""}</span></td>
+          <td><span>${data.HSCGpa || ""}</span></td>
+          <td><span>${data.HSCSubject || ""}</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Remaining fields like 8-19 also wrapped in dynamic-data span -->
+    <p class="mt-4">{৮। ছাত্রাবস্থায় পড়াশোনা বন্ধ থাকলে কারণ}: <span class="dynamic-data">${
+      data.StudyBreakCause || "..................................."
+    }</span></p>
+    <p>{৯। ইতিমধ্যেই ভর্তি প্রতিষ্ঠান}: <span class="dynamic-data">${
+      data.AlreadyAdmittedInstitutio || "..................................."
+    }</span></p>
+    <p>{১০। চাকরি}: <span class="dynamic-data">${
+      data.ApplicantEmployment || "..................................."
+    }</span></p>
+    <p>{১১। জন্ম তারিখ}: <span class="dynamic-data">${
+      data.Dob || "..................................."
+    }</span></p>
+    <p>{১২। লিঙ্গ}: <span class="dynamic-data">${
+      data.Gender || "..................................."
+    }</span></p>
+    <p>{১৩। বিবাহিত/অবিবাহিত}: <span class="dynamic-data">${
+      data.MaritalStatus || "..................................."
+    }</span></p>
+    <p>{১৪। ধর্ম}: <span class="dynamic-data">${
+      data.Religion || "..................................."
+    }</span></p>
+    <p>{১৫। সম্প্রদায়}: <span class="dynamic-data">${
+      data.Caste || "..................................."
+    }</span></p>
+    <p>{১৬। জাতীয়তা}: <span class="dynamic-data">${
+      data.Nationality || "..................................."
+    }</span></p>
+    <p>{১৭। মোবাইল নম্বর}: <span class="dynamic-data">${
+      data.PhoneNumber || "..................................."
+    }</span></p>
+    <p>{১৮। ই-মেইল}: <span class="dynamic-data">${
+      data.Email || "..................................."
+    }</span></p>
+    <p>{১৯। স্বীকৃত প্রতিষ্ঠান থেকে প্রাপ্ত বৃত্তি, পদক অথবা পুরস্কার}: <span class="dynamic-data">${
+      data.Scholarships || "..................................."
+    }</span></p>
+
+    <p class="text-right mt-8">Page 2 of 4</p>
+  </div>
+  
+  <div class="page" style="width:100%; padding:24px; box-sizing:border-box; font-size:14px; line-height:1.6;">
 
   <div>
     ২০। স্থায়ী ঠিকানা : গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number): 
-    ${
+    <span class="dynamic-data">${
       data.Village ||
       "............................................................."
-    };  
+    }</span>;  
     <br />
-    পোস্ট অফিস (Post office): ${
+    পোস্ট অফিস (Post office): <span class="dynamic-data">${
       data.PostOffice || "................................................."
-    };  
-    পোস্ট কোড/Zip code: ${
+    }</span>;  
+    পোস্ট কোড/Zip code: <span class="dynamic-data">${
       data.PostCode || "..................................................."
-    };  
+    }</span>;  
     <br />
-    থানা (Thana): ${
+    থানা (Thana): <span class="dynamic-data">${
       data.Thana ||
       "............................................................."
-    };  
-    জেলা (District): ${
+    }</span>;  
+    জেলা (District): <span class="dynamic-data">${
       data.District ||
-      "..........................................................."
-    };  
+      "........................................................"
+    }</span>;  
     <br />
-    দেশ (Country): ${
+    দেশ (Country): <span class="dynamic-data">${
       data.Country ||
       "....................................................................................................................."
-    }  
+    }</span>  
     <br /><br />
     শিক্ষার্থীর জাতীয় পরিচয়পত্র/জন্ম সনদ/পাসপোর্ট নাম্বার (Student’s NID/Birth reg./Passport number):  
-    ${
+    <span class="dynamic-data">${
       data.NID ||
       "....................................................................................................................."
-    }
+    }</span>
   </div>
-
 
   <div style="margin-top:24px;">
     ২১। বর্তমান ঠিকানা (Present address):  
-    ${
+    <span class="dynamic-data">${
       data.PresentAddress ||
       "........................................................................................................................................................................"
-    }  
+    }</span>  
     <br />
     ........................................................................................................................................................................
   </div>
 
-
   <div style="margin-top:24px;">
     ২২। অভিভাবকের নাম (Guardian’s name):  
-    ${
+    <span class="dynamic-data">${
       data.GuardianName ||
       "....................................................................................................................."
-    }  
+    }</span>  
     <br />
-    পেশা (Occupation): ${
+    পেশা (Occupation): <span class="dynamic-data">${
       data.GuardianOccupation || "............................................."
-    } ;  
-    মাসিক আয় (Monthly income): ${
+    }</span>;  
+    মাসিক আয় (Monthly income): <span class="dynamic-data">${
       data.GuardianMonthlyIncome ||
       "............................................................"
-    };  
+    }</span>;  
     <br />
-    সম্পর্ক (Relation): ${
+    সম্পর্ক (Relation): <span class="dynamic-data">${
       data.GuardianRelation ||
       ".............................................................."
-    } ;  
+    }</span>;  
     ঠিকানা (Address): গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):  
-    ${
+    <span class="dynamic-data">${
       data.GuardianVillage ||
       "........................................................."
-    };  
+    }</span>;  
     <br />
-    পোস্ট অফিস (Post office): ${
+    পোস্ট অফিস (Post office): <span class="dynamic-data">${
       data.GuardianPostOffice ||
       "................................................."
-    } ;  
-    পোস্ট কোড/Zip code: ${
+    }</span>;  
+    পোস্ট কোড/Zip code: <span class="dynamic-data">${
       data.GuardianPostCode || "............................."
-    } ;  
-    থানা (Thana): ${
+    }</span>;  
+    থানা (Thana): <span class="dynamic-data">${
       data.GuardianThana || "..................................."
-    } ;  
-    জেলা (District): ${
+    }</span>;  
+    জেলা (District): <span class="dynamic-data">${
       data.GuardianDistrict || "..............................."
-    } ;  
+    }</span>;  
     <br />
-    দেশ (Country): ${
+    দেশ (Country): <span class="dynamic-data">${
       data.GuardianCountry ||
       "..................................................."
-    } ;  
-    মোবাইল নম্বর (Mobile number): ${
+    }</span>;  
+    মোবাইল নম্বর (Mobile number): <span class="dynamic-data">${
       data.GuardianPhone ||
       "............................................................"
-    } ;  
+    }</span>;  
     <br />
-    জাতীয় পরিচয়পত্রের নম্বর (NID number): ${
+    জাতীয় পরিচয়পত্রের নম্বর (NID number): <span class="dynamic-data">${
       data.GuardianNID ||
       "....................................................................................................................."
-    }
+    }</span>
   </div>
 
   <div style="margin-top:24px;">
-    ২৩। পিতার অনুপস্থিতি আইনি অভিভাবকের নাম (Legal guardians name in absence of father):  
-    ${
+    ২৩। পিতার অনুপস্থিতি আইনি অভিভাবকের নাম (Legal guardian’s name in absence of father):  
+    <span class="dynamic-data">${
       data.LegalGuardianName ||
       ".................................................................................."
-    }  
+    }</span>  
     <br />
-    পেশা (Profession): ${
+    পেশা (Profession): <span class="dynamic-data">${
       data.LegalGuardianOccupation ||
       "....................................................."
-    };  
-    মাসিক আয় (Monthly income): ${
+    }</span>;  
+    মাসিক আয় (Monthly income): <span class="dynamic-data">${
       data.LegalGuardianIncome ||
       ".................................................."
-    };  
+    }</span>;  
     <br />
-    সম্পর্ক (Relation): ${
+    সম্পর্ক (Relation): <span class="dynamic-data">${
       data.LegalGuardianRelation ||
       "..........................................................................................................."
-    } ;  
+    }</span>;  
     <br />
-    ঠিকানা (Address): গ্রাম/বাড়ী নম্বর /রোড নম্বর (Village/House number/Road number):  
-    ${
+    ঠিকানা (Address): গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):  
+    <span class="dynamic-data">${
       data.LegalGuardianVillage ||
       ".............................................."
-    };  
-    পোস্ট অফিস (Post office): ${
+    }</span>;  
+    পোস্ট অফিস (Post office): <span class="dynamic-data">${
       data.LegalGuardianPostOffice ||
       ".............................................."
-    };  
+    }</span>;  
     <br />
-    পোস্ট কোড/Zip code: ${
+    পোস্ট কোড/Zip code: <span class="dynamic-data">${
       data.LegalGuardianPostCode || ".............................."
-    } ;  
-    থানা (Thana): ${
+    }</span>;  
+    থানা (Thana): <span class="dynamic-data">${
       data.LegalGuardianThana || "...................................."
-    } ;  
-    জেলা (District): ${
+    }</span>;  
+    জেলা (District): <span class="dynamic-data">${
       data.LegalGuardianDistrict || "...................................."
-    } ;  
+    }</span>;  
     <br />
-    দেশ (Country): ${
+    দেশ (Country): <span class="dynamic-data">${
       data.LegalGuardianCountry ||
       "...................................................."
-    } ;  
-    মোবাইল নম্বর (Mobile number): ${
+    }</span>;  
+    মোবাইল নম্বর (Mobile number): <span class="dynamic-data">${
       data.LegalGuardianPhone ||
       "..................................................."
-    } ;  
+    }</span>;  
     <br />
-    জাতীয় পরিচয়পত্রের নম্বর (NID number): ${
+    জাতীয় পরিচয়পত্রের নম্বর (NID number): <span class="dynamic-data">${
       data.LegalGuardianNID ||
       "....................................................................................................................."
-    }
+    }</span>
   </div>
 
   <div style="margin-top:24px;">
     ২৪। স্থানীয় অভিভাবকের নাম (Local guardian’s name):  
-    ${
+    <span class="dynamic-data">${
       data.LocalGuardianName ||
       "........................................................................................................................"
-    }  
+    }</span>  
     <br />
-    সম্পর্ক (Relation): ${
+    সম্পর্ক (Relation): <span class="dynamic-data">${
       data.LocalGuardianRelation ||
       "........................................................."
-    } ;  
+    }</span>;  
     স্থায়ী ঠিকানা (Permanent address):  
-    গ্রাম/বাড়ী নম্বর /রোড নম্বর (Village/House number/Road number):  
-    ${
+    গ্রাম/বাড়ী নম্বর/রোড নম্বর (Village/House number/Road number):  
+    <span class="dynamic-data">${
       data.LocalGuardianVillage ||
       "...................................................."
-    } ;  
+    }</span>;  
     <br />
-    পোস্ট অফিস (Post office): ${
+    পোস্ট অফিস (Post office): <span class="dynamic-data">${
       data.LocalGuardianPostOffice ||
       ".............................................."
-    } ;  
-    পোস্ট কোড/Zip code: ${
+    }</span>;  
+    পোস্ট কোড/Zip code: <span class="dynamic-data">${
       data.LocalGuardianPostCode || "................................."
-    } ;  
-    থানা (Thana): ${
+    }</span>;  
+    থানা (Thana): <span class="dynamic-data">${
       data.LocalGuardianThana || "........................................."
-    } ;  
-    জেলা (District): ${
+    }</span>;  
+    জেলা (District): <span class="dynamic-data">${
       data.LocalGuardianDistrict || "........................................."
-    } ;  
+    }</span>;  
     <br />
-    দেশ (Country): ${
+    দেশ (Country): <span class="dynamic-data">${
       data.LocalGuardianCountry ||
       "....................................................."
-    } ;  
-    মোবাইল নম্বর (Mobile number): ${
+    }</span>;  
+    মোবাইল নম্বর (Mobile number): <span class="dynamic-data">${
       data.LocalGuardianPhone ||
       "....................................................."
-    } ;  
+    }</span>;  
     <br />
-    জাতীয় পরিচয়পত্রের নম্বর (NID number): ${
+    জাতীয় পরিচয়পত্রের নম্বর (NID number): <span class="dynamic-data">${
       data.LocalGuardianNID ||
       "....................................................................................................................."
-    }
+    }</span>
   </div>
 
   <p class="text-right" style="margin-top:32px; font-size:12px;">Page 3 of 4</p>
 </div>
-
 
     <!-- Page 4 -->
     <div class="page">
