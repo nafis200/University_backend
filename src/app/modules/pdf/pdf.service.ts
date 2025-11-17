@@ -1,4 +1,5 @@
 import puppeteer, { Browser } from "puppeteer";
+import pLimit from "p-limit";
 
 let browser: Browser | null = null;
 
@@ -13,25 +14,29 @@ const getBrowser = async () => {
   return browser;
 };
 
+
+const limit = pLimit(50);
+
 const generatePDFBuffer = async (htmlContent: string) => {
-  const browser = await getBrowser();
-  const page = await browser.newPage();
+  return limit(async () => {
+    const browser = await getBrowser();
+    const page = await browser.newPage();
 
-  try {
-    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+    try {
+      await page.setContent(htmlContent, { waitUntil: "networkidle0" });
 
-    const pdfBuffer = await page.pdf({
-      format: "A4",
-      printBackground: true,
-      margin: { top: "10mm", bottom: "10mm", left: "10mm", right: "10mm" },
-    });
+      const pdfBuffer = await page.pdf({
+        format: "A4",
+        printBackground: true,
+        margin: { top: "10mm", bottom: "10mm", left: "10mm", right: "10mm" },
+      });
 
-    return pdfBuffer;
-  } finally {
-    await page.close(); // release page memory
-  }
+      return pdfBuffer;
+    } finally {
+      await page.close();
+    }
+  });
 };
-
 
 export const closeBrowser = async () => {
   if (browser) {
@@ -40,8 +45,6 @@ export const closeBrowser = async () => {
   }
 };
 
-
-
 export const PDfService = {
-    generatePDFBuffer
-}
+  generatePDFBuffer,
+};
