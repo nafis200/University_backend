@@ -1,6 +1,5 @@
 import express from 'express';
 import { userRoute } from '../modules/User/user.routes';
-import { AdminRoutes } from '../modules/Admin/admin.route';
 import { fileRoute } from '../modules/FileUpload/file.route';
 import { PdfRoutes } from '../modules/pdf/pdf.route';
 
@@ -11,10 +10,6 @@ const moduleRoutes = [
     {
         path: '/user',
         route: userRoute
-    },
-    {
-        path: '/admin',
-        route: AdminRoutes
     },
     {
         path: '/file',

@@ -1,11 +1,11 @@
 
-import express from "express";
-import { AdminController } from "./admin.controller";
+// import express from "express";
+// import { AdminController } from "./admin.controller";
 
-const router = express.Router();
+// const router = express.Router();
 
 
 
-router.get("/",AdminController.getAllfromDB);
+// router.get("/",AdminController.getAllfromDB);
 
-export const AdminRoutes = router;
+// export const AdminRoutes = router;

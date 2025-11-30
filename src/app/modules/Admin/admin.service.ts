@@ -25,95 +25,95 @@ import { prisma } from "../../../shared/prisma";
 
 
 const getAllFromDB = async (params: any, options:any) => {
-  const addConditions: Prisma.AdminWhereInput[] = [];
+  // const addConditions: Prisma.AdminWhereInput[] = [];
 
-  const { searchTerm ,...filterData} = params;
+  // const { searchTerm ,...filterData} = params;
 
-  const {page,limit,skip,sortBy,sortOrder} = calculatePagination(options)
+  // const {page,limit,skip,sortBy,sortOrder} = calculatePagination(options)
 
-  // console.log(page,limit)
+  // // console.log(page,limit)
 
-  const searchableField = ["name", "email"];
+  // const searchableField = ["name", "email"];
 
-  if (searchTerm) {
-    addConditions.push({
-      OR: searchableField.map((field) => ({
-        [field]: {
-          contains: params.searchTerm,
-          mode: "insensitive",
-        },
-      })),
-    });
-  }
-
-  // console.log(filterData)
-
-  // console.log(Object.keys(filterData))
-
-  if (Object.keys(filterData).length > 0) {
-    addConditions.push({
-      AND: Object.keys(filterData).map((field) => ({
-        [field]: {
-          equals: filterData[field],
-        },
-      })),
-    });
-  }
-
-  //  addConditions.push({
-  //     OR: [
-  //       {
-  //         name: {
-  //           contains: params.searchTerm,
-  //           mode: "insensitive",
-  //         },
+  // if (searchTerm) {
+  //   addConditions.push({
+  //     OR: searchableField.map((field) => ({
+  //       [field]: {
+  //         contains: params.searchTerm,
+  //         mode: "insensitive",
   //       },
-  //       {
-  //         email: {
-  //           contains: params.searchTerm,
-  //            mode: "insensitive",
-  //         },
-  //       },
-  //     ],
+  //     })),
   //   });
+  // }
 
-  //  OR:['name','email'].map(field)=>({
-  //         {
-  //         [field]: {
-  //           contains: params.searchTerm,
-  //            mode: "insensitive",
-  //         },
+  // // console.log(filterData)
+
+  // // console.log(Object.keys(filterData))
+
+  // if (Object.keys(filterData).length > 0) {
+  //   addConditions.push({
+  //     AND: Object.keys(filterData).map((field) => ({
+  //       [field]: {
+  //         equals: filterData[field],
   //       },
-  //  })
+  //     })),
+  //   });
+  // }
 
-  // console.dir(addConditions, { depth: "infinity" });
+  // //  addConditions.push({
+  // //     OR: [
+  // //       {
+  // //         name: {
+  // //           contains: params.searchTerm,
+  // //           mode: "insensitive",
+  // //         },
+  // //       },
+  // //       {
+  // //         email: {
+  // //           contains: params.searchTerm,
+  // //            mode: "insensitive",
+  // //         },
+  // //       },
+  // //     ],
+  // //   });
 
-  const whereConditions: Prisma.AdminWhereInput = {
-    AND: addConditions,
-  };
+  // //  OR:['name','email'].map(field)=>({
+  // //         {
+  // //         [field]: {
+  // //           contains: params.searchTerm,
+  // //            mode: "insensitive",
+  // //         },
+  // //       },
+  // //  })
 
-  const result = await prisma.admin.findMany({
-    where: whereConditions,
-    skip,
-    take:limit,
-    orderBy: options.sortBy && options.sortOrder ? {
-      [options.sortBy]:options.sortOrder
-    } : {
-       createdAt: 'desc'
-    }
-  });
+  // // console.dir(addConditions, { depth: "infinity" });
 
-  const total = await prisma.admin.count({
-     where:whereConditions
-  })
-  return {
-    meta:{
-      page:page,
-      limit:limit,
-      total:total
-    },
-   data:result
-  }
+  // const whereConditions: Prisma.AdminWhereInput = {
+  //   AND: addConditions,
+  // };
+
+  // const result = await prisma.admin.findMany({
+  //   where: whereConditions,
+  //   skip,
+  //   take:limit,
+  //   orderBy: options.sortBy && options.sortOrder ? {
+  //     [options.sortBy]:options.sortOrder
+  //   } : {
+  //      createdAt: 'desc'
+  //   }
+  // });
+
+  // const total = await prisma.admin.count({
+  //    where:whereConditions
+  // })
+  // return {
+  //   meta:{
+  //     page:page,
+  //     limit:limit,
+  //     total:total
+  //   },
+  //  data:result
+  // }
 };
 
 export const AdminService = {
