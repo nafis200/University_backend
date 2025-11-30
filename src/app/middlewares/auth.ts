@@ -7,17 +7,6 @@ import httpStatus from "http-status";
 import config from "../config";
 
 
-// function first() {
-//   second();
-// }
-
-// function second() {
-//   throw new Error("Something went wrong");
-// }
-
-// first();
-
-
 
 const auth = (...roles: string[]) => {
     return async (req: Request & { user?: any }, res: Response, next: NextFunction) => {
