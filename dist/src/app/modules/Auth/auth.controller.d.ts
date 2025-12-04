@@ -1,0 +1,8 @@
+import { Request, Response } from "express";
+export declare const AuthController: {
+    loginUser: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+    refreshToken: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+    registerUser: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+    toggleUserStatus: (req: Request, res: Response, next: import("express").NextFunction) => Promise<void>;
+};
+//# sourceMappingURL=auth.controller.d.ts.map

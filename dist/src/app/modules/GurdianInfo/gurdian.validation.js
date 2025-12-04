@@ -1,0 +1,42 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.guardianSchema = void 0;
+const zod_1 = require("zod");
+exports.guardianSchema = zod_1.z.object({
+    gstApplicationId: zod_1.z.string().min(6, "Valid gstApplicationId is required"),
+    GuardianName: zod_1.z.string().min(3, "Guardian's name must be at least 3 characters"),
+    GuardianOccupation: zod_1.z.string().min(3, "Guardian's occupation must be at least 3 characters"),
+    GuardianMonthlyIncome: zod_1.z.string().min(1, "Guardian's monthly income is required"),
+    GuardianRelation: zod_1.z.string().min(2, "Relation must be at least 2 characters"),
+    GuardianVillage: zod_1.z.string().min(3, "Village / House / Road number is required"),
+    GuardianPostOffice: zod_1.z.string().min(2, "Post office is required"),
+    GuardianPostCode: zod_1.z.string().min(2, "Post code is required"),
+    GuardianThana: zod_1.z.string().min(2, "Thana is required"),
+    GuardianDistrict: zod_1.z.string().min(2, "District is required"),
+    GuardianCountry: zod_1.z.string().min(2, "Country is required"),
+    GuardianNID: zod_1.z.string().min(5, "NID / Birth reg. / Passport number is required"),
+    GuardianPhone: zod_1.z.string().min(10, "Guardian's mobile number must be valid"),
+    LegalGuardianName: zod_1.z.string().min(3, "Legal Guardian's name must be at least 3 characters"),
+    LegalGuardianOccupation: zod_1.z.string().min(3, "Occupation is required"),
+    LegalGuardianIncome: zod_1.z.string().min(1, "Monthly income is required"),
+    LegalGuardianRelation: zod_1.z.string().min(2, "Relation must be at least 2 characters"),
+    LegalGuardianVillage: zod_1.z.string().min(3, "Village / House / Road number is required"),
+    LegalGuardianPostOffice: zod_1.z.string().min(2, "Post office is required"),
+    LegalGuardianPostCode: zod_1.z.string().min(2, "Post code is required"),
+    LegalGuardianThana: zod_1.z.string().min(2, "Thana is required"),
+    LegalGuardianDistrict: zod_1.z.string().min(2, "District is required"),
+    LegalGuardianCountry: zod_1.z.string().min(2, "Country is required"),
+    LegalGuardianNID: zod_1.z.string().min(5, "NID / Birth reg. / Passport number is required"),
+    LegalGuardianPhone: zod_1.z.string().min(10, "Mobile number must be valid"),
+    LocalGuardianName: zod_1.z.string().min(3, "Local Guardian's name must be at least 3 characters").optional(),
+    LocalGuardianRelation: zod_1.z.string().min(2, "Relation must be at least 2 characters").optional(),
+    LocalGuardianVillage: zod_1.z.string().min(3, "Village / House / Road number is required").optional(),
+    LocalGuardianPostOffice: zod_1.z.string().min(2, "Post office is required").optional(),
+    LocalGuardianPostCode: zod_1.z.string().min(2, "Post code is required").optional(),
+    LocalGuardianThana: zod_1.z.string().min(2, "Thana is required").optional(),
+    LocalGuardianDistrict: zod_1.z.string().min(2, "District is required").optional(),
+    LocalGuardianCountry: zod_1.z.string().min(2, "Country is required").optional(),
+    LocalGuardianNID: zod_1.z.string().min(5, "NID / Birth reg. / Passport number is required").optional(),
+    LocalGuardianPhone: zod_1.z.string().min(10, "Mobile number must be valid").optional(),
+});
+//# sourceMappingURL=gurdian.validation.js.map

@@ -1,0 +1,317 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  gstApplicationId  String     @id @default(uuid()) 
+  password          String
+  role              UserRole
+  status            UserStatus @default(ACTIVE)
+  unit              String     @default("A") 
+  faculty           String?    
+  personalInfo      PersonalInfo? 
+  Guardian          Guardian?
+  EducationalInfo   EducationalInfo?
+  Address           Address?
+  OthersInfo        OthersInfo? 
+  Approved          Approved?
+  Document          Document?
+  OmrResult         OmrResult?
+  StudentRawResults StudentRawResults?
+  HscMarks          HscMarks?
+  HscSummary        HscSummary?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@map("users")
+}
+
+model PersonalInfo {
+  id               String   @id @default(uuid())
+  gstApplicationId String   @unique
+
+  Name             String?
+  NAME_BN          String?
+  Father           String?
+  Mother           String?
+  Dob              String?
+  Gender           String?
+  BloodGroup       String?
+  MaritalStatus    String?
+  Religion         String?
+  Caste            String?
+  Nationality      String?
+  PhoneNumber      String?
+  Email            String?
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("personal_info")
+}
+
+
+
+model Guardian {
+  id                    String   @id @default(uuid())  
+  gstApplicationId      String   @unique                 
+
+  GuardianName          String?
+  GuardianOccupation    String?
+  GuardianMonthlyIncome String?
+  GuardianRelation      String?
+  GuardianVillage       String?
+  GuardianPostOffice    String?
+  GuardianPostCode      String?
+  GuardianThana         String?
+  GuardianDistrict      String?
+  GuardianCountry       String?
+  GuardianNID           String?
+  GuardianPhone         String?
+
+  LegalGuardianName          String?
+  LegalGuardianOccupation    String?
+  LegalGuardianIncome        String?
+  LegalGuardianRelation      String?
+  LegalGuardianVillage       String?
+  LegalGuardianPostOffice    String?
+  LegalGuardianPostCode      String?
+  LegalGuardianThana         String?
+  LegalGuardianDistrict      String?
+  LegalGuardianCountry       String?
+  LegalGuardianNID           String?
+  LegalGuardianPhone         String?
+
+  LocalGuardianName          String?
+  LocalGuardianRelation      String?
+  LocalGuardianVillage       String?
+  LocalGuardianPostOffice    String?
+  LocalGuardianPostCode      String?
+  LocalGuardianThana         String?
+  LocalGuardianDistrict      String?
+  LocalGuardianCountry       String?
+  LocalGuardianNID           String?
+  LocalGuardianPhone         String?
+
+  user  User @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("guardians")
+}
+
+
+model Address {
+  id               String   @id @default(uuid())
+  gstApplicationId String   @unique
+
+  Village          String?
+  PostOffice       String?
+  PostCode         String?
+  Thana            String?
+  District         String?
+  Country          String?
+  NID              String?
+  PresentAddress   String?
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("addresses")
+}
+
+model EducationalInfo {
+  id               String   @id @default(uuid())
+  gstApplicationId String   @unique
+
+  SSCBoard         String?
+  SSCInstitution   String?
+  SSCYear          String?
+  SSCRoll          String?
+  SSCGpa           String?
+  SSCSubject       String?
+
+  HSCBoard         String?
+  HSCInstitution   String?
+  HSCYear          String?
+  HSCRoll          String?
+  HSCGpa           String?
+  HSCSubject       String?
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("educational_info")
+}
+
+model OthersInfo {
+  id                  String   @id @default(uuid())
+  gstApplicationId    String   @unique
+
+  Department          String? 
+  Program             String?
+  HallName            String?
+  StudyBreakCause     String?
+  AlreadyAdmittedInstitution String?
+  ApplicantEmployment String?
+  Scholarships        String?
+
+  user                User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("others_info")
+}
+
+
+model Approved {
+  id               Int      @id @default(autoincrement())
+  gstApplicationId String   @unique
+  adminApproved    Boolean  @default(false)
+  facultyApproved  Boolean  @default(false)
+  deanApproved     Boolean  @default(false)
+  registerApproved Boolean  @default(false)
+  hallRegisterApproved Boolean @default(false)
+  status           Boolean  @default(false) // general status
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  @@map("approveds")
+}
+
+model Document {
+  id               Int      @id @default(autoincrement())
+  gstApplicationId String   @unique
+  sscMarksheet     Boolean  @default(false)
+  sscTranscript    Boolean  @default(false)
+  hscMarksheet     Boolean  @default(false)
+  hscTranscript    Boolean  @default(false)
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  @@map("documents")
+}
+
+model HscMarks {
+  id               String   @id @default(uuid())
+  gstApplicationId String   @unique
+
+  BanglaLG         String?
+  BanglaGP         Float?
+  BanglaMarks      Float?
+
+  EnglishLG        String?
+  EnglishGP        Float?
+  EnglishMarks     Float?
+
+  PhysicsLG        String?
+  PhysicsGP        Float?
+  PhysicsMarks     Float?
+
+  ChemistryLG      String?
+  ChemistryGP      Float?
+  ChemistryMarks   Float?
+
+  MathLG           String?
+  MathGP           Float?
+  MathMarks        Float?
+
+  BiologyLG        String?
+  BiologyGP        Float?
+  BiologyMarks     Float?
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("hsc_marks")
+}
+
+model HscSummary {
+  id               String   @id @default(uuid())
+  gstApplicationId String   @unique
+
+  HscExamName      String?
+  HscStudyGroup    String?
+  HscStudyType     String?
+
+  HscTotalObtained Float?
+  HscFullMarks     Float?
+  HscConverted1000 Float?
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("hsc_summary")
+}
+
+model StudentRawResults {
+  id               String   @id @default(uuid())
+  gstApplicationId String   @unique
+
+  HscMarksRaw      String?
+  HscLetterGradeRaw String?
+  SscLetterGradeRaw String?
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("student_raw_results")
+}
+
+model OmrResult {
+  id               String   @id @default(uuid())
+  gstApplicationId String   @unique
+
+  OmrPhysics       Float?
+  OmrChemistry     Float?
+  OmrMath          Float?
+  OmrBiology       Float?
+  OmrBangla        String?
+  OmrEnglish       String?
+  OmrTotal         Float?
+  OmrStatus        String?
+  Position         Int?
+
+  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("omr_results")
+}
+
+
+enum UserRole {
+  STUDENTS
+  ADMIN
+  FACULTY
+  DEAN
+  REGISTER
+  HALL_REGISTER
+}
+
+
+enum UserStatus {
+  ACTIVE
+  BLOCKED
+  DELETED
+}

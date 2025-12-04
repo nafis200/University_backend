@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PersonalInfoController = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
+const personalInfo_services_1 = require("./personalInfo.services");
+const upsertPersonalInfo = (0, catchAsync_1.default)(async (req, res) => {
+    const result = await personalInfo_services_1.PersonalInfoServices.PersonalInfo(req.body);
+    (0, sendResponse_1.default)(res, {
+        status: http_status_1.default.OK,
+        success: true,
+        message: "Personal information saved successfully!",
+        data: result.data,
+    });
+});
+exports.PersonalInfoController = {
+    upsertPersonalInfo,
+};
+//# sourceMappingURL=personalInfo.controller.js.map
