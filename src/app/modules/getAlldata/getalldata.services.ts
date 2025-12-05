@@ -1,9 +1,5 @@
-
-// http://localhost:3000/api/info/fetch?searchTerm=password&department=computer&page=1&limit=10&adminApproved=true
-
-
 import prisma from "../../../shared/prisma";
-import { Prisma } from "@prisma/client";
+import { Prisma, UserRole } from "@prisma/client";
 import type { IPaginationOptions } from "../../interfaces/pagination";
 import { paginationHelper } from "../../../helpars/paginationHelper";
 
@@ -11,27 +7,27 @@ interface IUserFilterRequest {
   searchTerm?: string;
   department?: string;
   unit?: string;
-
   adminApproved?: string | boolean;
   facultyApproved?: string | boolean;
   deanApproved?: string | boolean;
   registerApproved?: string | boolean;
   hallRegisterApproved?: string | boolean;
+  role?: string;
+  excludeRole?: string;
 }
 
 const getUsersWithFilters = async (
   params: IUserFilterRequest,
   options: IPaginationOptions
 ) => {
-
-
   const { page, limit, skip } = paginationHelper.calculatePagination(options);
 
   const {
     searchTerm,
     department,
     unit,
-
+    role,
+    excludeRole,
     adminApproved,
     facultyApproved,
     deanApproved,
@@ -39,10 +35,9 @@ const getUsersWithFilters = async (
     hallRegisterApproved,
   } = params;
 
-
-
   const andConditions: Prisma.UserWhereInput[] = [];
 
+  // Search
   if (searchTerm) {
     andConditions.push({
       gstApplicationId: {
@@ -54,9 +49,7 @@ const getUsersWithFilters = async (
 
   if (department) {
     andConditions.push({
-      OthersInfo: {
-        Department: { contains: department, mode: "insensitive" },
-      },
+      OthersInfo: { Department: { contains: department, mode: "insensitive" } },
     });
   }
 
@@ -64,9 +57,19 @@ const getUsersWithFilters = async (
     andConditions.push({ unit });
   }
 
-  const parseBooleanStrict = (
-    v: string | boolean | undefined
-  ): boolean | undefined => {
+  if (role) {
+    const roleEnum = UserRole[role.toUpperCase() as keyof typeof UserRole];
+    andConditions.push({ role: roleEnum });
+  }
+
+  if (excludeRole) {
+    const excludeRoleEnum =
+      UserRole[excludeRole.toUpperCase() as keyof typeof UserRole];
+    andConditions.push({ role: { not: excludeRoleEnum } });
+  }
+
+  // Approval filters
+  const parseBooleanStrict = (v: string | boolean | undefined) => {
     if (v === true || v === false) return v;
     if (typeof v === "string") {
       const clean = v.trim();
@@ -77,38 +80,25 @@ const getUsersWithFilters = async (
   };
 
   const approvalWhere: Record<string, any> = {};
-
   const adminVal = parseBooleanStrict(adminApproved);
   if (adminVal !== undefined)
     approvalWhere.adminApproved = { equals: adminVal };
-
   const facultyVal = parseBooleanStrict(facultyApproved);
   if (facultyVal !== undefined)
     approvalWhere.facultyApproved = { equals: facultyVal };
-
   const deanVal = parseBooleanStrict(deanApproved);
   if (deanVal !== undefined) approvalWhere.deanApproved = { equals: deanVal };
-
   const regVal = parseBooleanStrict(registerApproved);
   if (regVal !== undefined) approvalWhere.registerApproved = { equals: regVal };
-
   const hallVal = parseBooleanStrict(hallRegisterApproved);
   if (hallVal !== undefined)
     approvalWhere.hallRegisterApproved = { equals: hallVal };
 
   if (Object.keys(approvalWhere).length > 0) {
-    andConditions.push({
-      Approved: approvalWhere,
-    });
+    andConditions.push({ Approved: approvalWhere });
   }
 
-  
-
-  andConditions.push({ status: "ACTIVE" });
-
   const whereConditions: Prisma.UserWhereInput = { AND: andConditions };
-
-  console.log(whereConditions)
 
   const data = await prisma.user.findMany({
     where: whereConditions,
@@ -120,10 +110,10 @@ const getUsersWithFilters = async (
       OthersInfo: true,
       Approved: true,
       Document: true,
-      HscMarks:true,
-      HscSummary:true,
-      StudentRawResults:true,
-      OmrResult:true
+      HscMarks: true,
+      HscSummary: true,
+      StudentRawResults: true,
+      OmrResult: true,
     },
     skip,
     take: limit,
@@ -132,12 +122,7 @@ const getUsersWithFilters = async (
 
   const total = await prisma.user.count({ where: whereConditions });
 
-  return {
-    meta: { page, limit, total },
-    data,
-  };
+  return { meta: { page, limit, total }, data };
 };
 
-export const UserServices = {
-  getUsersWithFilters,
-};
+export const UserServices = { getUsersWithFilters };

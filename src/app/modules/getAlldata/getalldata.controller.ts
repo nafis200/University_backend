@@ -4,11 +4,9 @@ import sendResponse from "../../../shared/sendResponse";
 import catchAsync from "../../../shared/catchAsync";
 import { UserServices } from "./getalldata.services";
 
-const getUsersByUnit = catchAsync(
+export const getUsersByUnit = catchAsync(
   async (req: Request & { user?: any }, res: Response, next: NextFunction) => {
     const decodedUser = req.user;
-
-    // const unit = decodedUser.unit;
     const unit = "all";
 
     const {
@@ -21,6 +19,8 @@ const getUsersByUnit = catchAsync(
       deanApproved,
       registerApproved,
       hallRegisterApproved,
+      role,        
+      excludeRole, 
     } = req.query;
 
     const users = await UserServices.getUsersWithFilters(
@@ -33,6 +33,8 @@ const getUsersByUnit = catchAsync(
         deanApproved: deanApproved as string | boolean,
         registerApproved: registerApproved as string | boolean,
         hallRegisterApproved: hallRegisterApproved as string | boolean,
+        role: role as string,
+        excludeRole: excludeRole as string,
       },
       {
         page: page ? Number(page) : 1,
@@ -48,7 +50,3 @@ const getUsersByUnit = catchAsync(
     });
   }
 );
-
-export const GetAllDataController = {
-  getUsersByUnit,
-};

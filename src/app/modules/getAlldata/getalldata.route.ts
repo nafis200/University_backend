@@ -1,9 +1,16 @@
 import { Router } from "express";
-import { GetAllDataController } from "./getalldata.controller";
+import { getUsersByUnit } from "./getalldata.controller";
+
 
 
 const router = Router();
 
-router.get("/fetch", GetAllDataController.getUsersByUnit);
+router.get("/fetch", getUsersByUnit);
 
 export const AllDataRoutes = router;
+
+
+// GET http://localhost:3000/api/info/fetch?excludeRole=STUDENTS&page=1&limit=10
+
+// GET http://localhost:3000/api/info/fetch?role=STUDENTS&page=1&limit=10
+
