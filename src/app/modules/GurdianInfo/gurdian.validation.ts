@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const guardianSchema = z.object({
-  gstApplicationId: z.string().min(6, "Valid gstApplicationId is required"),
+  gstApplicationId: z.string().min(3, "Valid gstApplicationId is required"),
 
   GuardianName: z.string().min(3, "Guardian's name must be at least 3 characters"),
   GuardianOccupation: z.string().min(3, "Guardian's occupation must be at least 3 characters"),

@@ -32,6 +32,8 @@ export const splitExcelRow = (row: any) => {
     HSCYear: String(row.hsc_pass_year ?? ""),
     HSCRoll: String(row.hsc_roll ?? ""),
     HSCGpa: String(row.hsc_gpa ?? ""),
+    HSCSubject: String(row.hsc_study_group ?? ""),
+    SSCSubject: String(row.ssc_study_group ?? ""),
   };
 
 

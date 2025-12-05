@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const addressSchema = z.object({
-  gstApplicationId: z.string().min(6, "Valid gstApplicationId is required"),
+  gstApplicationId: z.string().min(3, "Valid gstApplicationId is required"),
 
   Village: z.string().min(3, "Village must be at least 3 characters"),
   PostOffice: z.string().min(3, "PostOffice must be at least 3 characters"),

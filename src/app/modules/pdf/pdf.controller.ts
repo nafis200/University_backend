@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { htmlContent } from "./HtmlPdfGenerator";
 import { PDfService } from "./pdf.service";
-import { realPdf } from "./pdfData";
+
 
 
 export const generatePDF = async (req: Request, res: Response) => {
   try {
-    const html = htmlContent(realPdf);
+    const pdfData = req.body;
+    const html = htmlContent(pdfData);
     const pdfBuffer = await PDfService.generatePDFBuffer(html);
 
     res.setHeader("Content-Type", "application/pdf");

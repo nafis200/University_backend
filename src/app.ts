@@ -5,9 +5,11 @@ import httpStatus from "http-status";
 
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 import router from "./app/routes";
+import path from "path";
 
 const app: Application = express();
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

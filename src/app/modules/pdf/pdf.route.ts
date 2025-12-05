@@ -2,8 +2,10 @@ import express, { NextFunction, Request, Response } from "express";
 import { generatePDF } from "./pdf.controller";
 
 
+
 const router = express.Router();
 
-router.get("/", generatePDF);
+// router.get("/", generatePDF);
+router.post("/pdfreader",generatePDF);
 
 export const PdfRoutes = router;

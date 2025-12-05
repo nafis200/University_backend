@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const personalInfoSchema = z.object({
-  gstApplicationId: z.string().min(6, "Valid gstApplicationId is required"),
+  gstApplicationId: z.string().min(3, "Valid gstApplicationId is required"),
 
   Name: z.string().min(3, "Student's name must be at least 3 characters"),
   NAME_BN: z.string().min(3, "বাংলা নাম লিখুন"),
@@ -12,7 +12,7 @@ export const personalInfoSchema = z.object({
   BloodGroup: z.string().min(1, "Blood group is required"),
   MaritalStatus: z.string().min(1, "Marital status is required"),
   Religion: z.string().min(1, "Religion is required"),
-  Caste: z.string().min(1, "Caste is required"),
+  Caste: z.string().nullable().optional(),
   Nationality: z.string().min(1, "Nationality is required"),
   PhoneNumber: z.string().min(1, "Mobile number is required"),
   Email: z.string().email("Invalid email format"),
