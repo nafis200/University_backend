@@ -46,7 +46,7 @@ const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const parseExcelFile = async (filePath) => {
     const workbook = xlsx_1.default.readFile(filePath);
     const data = {};
-    workbook.SheetNames.forEach(sheetName => {
+    workbook.SheetNames.forEach((sheetName) => {
         const sheet = workbook.Sheets[sheetName];
         if (!sheet)
             return;
@@ -70,7 +70,7 @@ const uploadExcelFile = async (file) => {
         const rows = tableData[sheetName];
         if (!rows)
             continue;
-        rows.forEach(row => {
+        rows.forEach((row) => {
             const parts = (0, excelDataParse_1.splitExcelRow)(row);
             Users.push(parts.user);
             PersonalInfos.push(parts.personalInfo);
@@ -140,6 +140,8 @@ const uploadExcelFile = async (file) => {
                     HSCYear: eduRow.HSCYear ?? null,
                     HSCRoll: eduRow.HSCRoll ?? null,
                     HSCGpa: eduRow.HSCGpa ?? null,
+                    HSCSubject: eduRow.HSCSubject ?? null,
+                    SSCSubject: eduRow.SSCSubject ?? null,
                 },
                 update: {
                     SSCBoard: eduRow.SSCBoard ?? null,
@@ -150,6 +152,8 @@ const uploadExcelFile = async (file) => {
                     HSCYear: eduRow.HSCYear ?? null,
                     HSCRoll: eduRow.HSCRoll ?? null,
                     HSCGpa: eduRow.HSCGpa ?? null,
+                    HSCSubject: eduRow.HSCSubject ?? null,
+                    SSCSubject: eduRow.SSCSubject ?? null,
                 },
             });
             await tx.hscSummary.upsert({

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.guardianSchema = void 0;
 const zod_1 = require("zod");
 exports.guardianSchema = zod_1.z.object({
-    gstApplicationId: zod_1.z.string().min(6, "Valid gstApplicationId is required"),
+    gstApplicationId: zod_1.z.string().min(3, "Valid gstApplicationId is required"),
     GuardianName: zod_1.z.string().min(3, "Guardian's name must be at least 3 characters"),
     GuardianOccupation: zod_1.z.string().min(3, "Guardian's occupation must be at least 3 characters"),
     GuardianMonthlyIncome: zod_1.z.string().min(1, "Guardian's monthly income is required"),

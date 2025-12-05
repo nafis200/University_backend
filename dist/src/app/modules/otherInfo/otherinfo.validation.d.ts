@@ -4,9 +4,9 @@ export declare const othersInfoSchema: z.ZodObject<{
     Department: z.ZodString;
     Program: z.ZodString;
     HallName: z.ZodString;
-    StudyBreakCause: z.ZodOptional<z.ZodString>;
-    AlreadyAdmittedInstitution: z.ZodOptional<z.ZodString>;
-    ApplicantEmployment: z.ZodOptional<z.ZodString>;
-    Scholarships: z.ZodOptional<z.ZodString>;
+    StudyBreakCause: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    AlreadyAdmittedInstitution: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    ApplicantEmployment: z.ZodOptional<z.ZodNullable<z.ZodString>>;
+    Scholarships: z.ZodOptional<z.ZodNullable<z.ZodString>>;
 }, z.core.$strip>;
 //# sourceMappingURL=otherinfo.validation.d.ts.map

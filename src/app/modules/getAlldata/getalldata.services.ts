@@ -108,6 +108,8 @@ const getUsersWithFilters = async (
 
   const whereConditions: Prisma.UserWhereInput = { AND: andConditions };
 
+  console.log(whereConditions)
+
   const data = await prisma.user.findMany({
     where: whereConditions,
     include: {

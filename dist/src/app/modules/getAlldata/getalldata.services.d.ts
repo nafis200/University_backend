@@ -18,14 +18,14 @@ export declare const UserServices: {
         };
         data: ({
             personalInfo: {
-                Father: string | null;
-                Mother: string | null;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
                 id: string;
                 Name: string | null;
                 NAME_BN: string | null;
+                Father: string | null;
+                Mother: string | null;
                 Dob: string | null;
                 Gender: string | null;
                 BloodGroup: string | null;

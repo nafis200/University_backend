@@ -50,7 +50,7 @@ const htmlContent = (data) => {
 
       <!-- Center Title -->
       <div class="text-center">
-        <img src="https://i.postimg.cc/Y9cT4b11/JUSTLogo.png" width="70" />
+        <img src="http://localhost:5000/JUSTLogo.png" width="70" />
         <p class="font-bold mt-2" style="font-size:16px;">{যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়}</p>
         <p>যশোর 7408, বাংলাদেশ</p>
         <p class="font-semibold mt-2">Jashore University of Science and Technology</p>

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.addressSchema = void 0;
 const zod_1 = require("zod");
 exports.addressSchema = zod_1.z.object({
-    gstApplicationId: zod_1.z.string().min(6, "Valid gstApplicationId is required"),
+    gstApplicationId: zod_1.z.string().min(3, "Valid gstApplicationId is required"),
     Village: zod_1.z.string().min(3, "Village must be at least 3 characters"),
     PostOffice: zod_1.z.string().min(3, "PostOffice must be at least 3 characters"),
     PostCode: zod_1.z.string().min(3, "PostCode must be at least 3 characters"),

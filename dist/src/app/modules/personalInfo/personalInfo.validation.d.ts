@@ -10,7 +10,7 @@ export declare const personalInfoSchema: z.ZodObject<{
     BloodGroup: z.ZodString;
     MaritalStatus: z.ZodString;
     Religion: z.ZodString;
-    Caste: z.ZodString;
+    Caste: z.ZodOptional<z.ZodNullable<z.ZodString>>;
     Nationality: z.ZodString;
     PhoneNumber: z.ZodString;
     Email: z.ZodString;

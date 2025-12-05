@@ -25,6 +25,8 @@ export declare const splitExcelRow: (row: any) => {
         HSCYear: string;
         HSCRoll: string;
         HSCGpa: string;
+        HSCSubject: string;
+        SSCSubject: string;
     };
     hscSummary: {
         gstApplicationId: string;
