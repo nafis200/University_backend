@@ -299,6 +299,30 @@ model OmrResult {
   @@map("omr_results")
 }
 
+model File {
+  id           String   @id @default(cuid())  
+  fileId       String   @unique               
+  title        String
+  viewLink     String
+  downloadLink String
+  createdAt    DateTime @default(now())      
+}
+
+model ExamApplication {
+  id           String   @id @default(cuid())   
+  applyStartDate DateTime
+  applyEndDate   DateTime
+  createdAt    DateTime @default(now())       
+}
+
+model ExamAnnouncement {
+  id        String   @id @default(cuid())    
+  title     String
+  unit      String
+  examDate  DateTime
+  createdAt DateTime @default(now())        
+}
+
 
 enum UserRole {
   STUDENTS

@@ -5,10 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GoogleDriveRoutes = void 0;
 const express_1 = require("express");
-const multer_1 = __importDefault(require("multer"));
 const googleDrive_controller_1 = require("./googleDrive.controller");
+const multer_1 = __importDefault(require("multer"));
 const router = (0, express_1.Router)();
 const upload = (0, multer_1.default)({ storage: multer_1.default.memoryStorage() });
 router.post("/upload-file", upload.single("file"), googleDrive_controller_1.GoogleDriveController.uploadFile);
+router.get("/files", googleDrive_controller_1.GoogleDriveController.getFiles);
+router.delete("/delete-file/:fileId", googleDrive_controller_1.GoogleDriveController.deleteFile);
 exports.GoogleDriveRoutes = router;
 //# sourceMappingURL=googleDrive.route.js.map

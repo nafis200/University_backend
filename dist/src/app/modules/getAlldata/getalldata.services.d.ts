@@ -2,12 +2,15 @@ import type { IPaginationOptions } from "../../interfaces/pagination";
 interface IUserFilterRequest {
     searchTerm?: string;
     department?: string;
+    notDepartment?: string;
     unit?: string;
     adminApproved?: string | boolean;
     facultyApproved?: string | boolean;
     deanApproved?: string | boolean;
     registerApproved?: string | boolean;
     hallRegisterApproved?: string | boolean;
+    role?: string;
+    excludeRole?: string;
 }
 export declare const UserServices: {
     getUsersWithFilters: (params: IUserFilterRequest, options: IPaginationOptions) => Promise<{

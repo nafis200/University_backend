@@ -1,1 +1,1 @@
-{"version":3,"file":"googleDrive.service.d.ts","sourceRoot":"","sources":["../../../../../src/app/modules/googleDrive/googleDrive.service.ts"],"names":[],"mappings":"AAIA,eAAO,MAAM,qBAAqB,2CAOjC,CAAC;AAEF,eAAO,MAAM,mBAAmB;gCACI,OAAO,CAAC,MAAM,CAAC,IAAI;;;;;CAkCtD,CAAC"}
+{"version":3,"file":"googleDrive.service.d.ts","sourceRoot":"","sources":["../../../../../src/app/modules/googleDrive/googleDrive.service.ts"],"names":[],"mappings":"AAKA,eAAO,MAAM,qBAAqB,2CAUjC,CAAC;AAEF,eAAO,MAAM,mBAAmB;gCACI,OAAO,CAAC,MAAM,CAAC,IAAI,SAAS,MAAM;;;;;;;;;;;;;;;;yBAsCzC,MAAM;;;;;;;;CAOlC,CAAC"}

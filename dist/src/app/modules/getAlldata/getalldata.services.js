@@ -1,16 +1,17 @@
 "use strict";
-// http://localhost:3000/api/info/fetch?searchTerm=password&department=computer&page=1&limit=10&adminApproved=true
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
+const client_1 = require("@prisma/client");
 const paginationHelper_1 = require("../../../helpars/paginationHelper");
 const getUsersWithFilters = async (params, options) => {
     const { page, limit, skip } = paginationHelper_1.paginationHelper.calculatePagination(options);
-    const { searchTerm, department, unit, adminApproved, facultyApproved, deanApproved, registerApproved, hallRegisterApproved, } = params;
+    const { searchTerm, department, notDepartment, unit, role, excludeRole, adminApproved, facultyApproved, deanApproved, registerApproved, hallRegisterApproved, } = params;
     const andConditions = [];
+    // Search
     if (searchTerm) {
         andConditions.push({
             gstApplicationId: {
@@ -19,16 +20,43 @@ const getUsersWithFilters = async (params, options) => {
             },
         });
     }
-    if (department) {
+    if (department && department.toLowerCase() !== "all") {
+        andConditions.push({
+            OthersInfo: { Department: { contains: department, mode: "insensitive" } },
+        });
+    }
+    if (notDepartment === "not-null") {
         andConditions.push({
             OthersInfo: {
-                Department: { contains: department, mode: "insensitive" },
+                is: {
+                    Department: {
+                        not: null,
+                    },
+                },
+            },
+        });
+    }
+    if (notDepartment === "null") {
+        andConditions.push({
+            OthersInfo: {
+                is: {
+                    Department: null,
+                },
             },
         });
     }
     if (unit && unit.toLowerCase() !== "all") {
         andConditions.push({ unit });
     }
+    if (role) {
+        const roleEnum = client_1.UserRole[role.toUpperCase()];
+        andConditions.push({ role: roleEnum });
+    }
+    if (excludeRole) {
+        const excludeRoleEnum = client_1.UserRole[excludeRole.toUpperCase()];
+        andConditions.push({ role: { not: excludeRoleEnum } });
+    }
+    // Approval filters
     const parseBooleanStrict = (v) => {
         if (v === true || v === false)
             return v;
@@ -58,11 +86,8 @@ const getUsersWithFilters = async (params, options) => {
     if (hallVal !== undefined)
         approvalWhere.hallRegisterApproved = { equals: hallVal };
     if (Object.keys(approvalWhere).length > 0) {
-        andConditions.push({
-            Approved: approvalWhere,
-        });
+        andConditions.push({ Approved: approvalWhere });
     }
-    andConditions.push({ status: "ACTIVE" });
     const whereConditions = { AND: andConditions };
     const data = await prisma_1.default.user.findMany({
         where: whereConditions,
@@ -77,19 +102,14 @@ const getUsersWithFilters = async (params, options) => {
             HscMarks: true,
             HscSummary: true,
             StudentRawResults: true,
-            OmrResult: true
+            OmrResult: true,
         },
         skip,
         take: limit,
         orderBy: { createdAt: "desc" },
     });
     const total = await prisma_1.default.user.count({ where: whereConditions });
-    return {
-        meta: { page, limit, total },
-        data,
-    };
+    return { meta: { page, limit, total }, data };
 };
-exports.UserServices = {
-    getUsersWithFilters,
-};
+exports.UserServices = { getUsersWithFilters };
 //# sourceMappingURL=getalldata.services.js.map
