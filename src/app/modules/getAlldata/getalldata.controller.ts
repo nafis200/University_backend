@@ -7,11 +7,12 @@ import { UserServices } from "./getalldata.services";
 export const getUsersByUnit = catchAsync(
   async (req: Request & { user?: any }, res: Response, next: NextFunction) => {
     const decodedUser = req.user;
-    const unit = "all";
+    
 
     const {
       searchTerm,
       department,
+      notDepartment,
       page,
       limit,
       adminApproved,
@@ -19,7 +20,8 @@ export const getUsersByUnit = catchAsync(
       deanApproved,
       registerApproved,
       hallRegisterApproved,
-      role,        
+      role,   
+      unit,     
       excludeRole, 
     } = req.query;
 
@@ -27,7 +29,8 @@ export const getUsersByUnit = catchAsync(
       {
         searchTerm: searchTerm as string,
         department: department as string,
-        unit,
+        notDepartment: notDepartment as string,
+        unit: unit as string,
         adminApproved: adminApproved as string | boolean,
         facultyApproved: facultyApproved as string | boolean,
         deanApproved: deanApproved as string | boolean,
@@ -50,3 +53,4 @@ export const getUsersByUnit = catchAsync(
     });
   }
 );
+

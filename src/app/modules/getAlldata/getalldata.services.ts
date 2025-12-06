@@ -6,6 +6,7 @@ import { paginationHelper } from "../../../helpars/paginationHelper";
 interface IUserFilterRequest {
   searchTerm?: string;
   department?: string;
+  notDepartment?:string;
   unit?: string;
   adminApproved?: string | boolean;
   facultyApproved?: string | boolean;
@@ -25,6 +26,7 @@ const getUsersWithFilters = async (
   const {
     searchTerm,
     department,
+    notDepartment,
     unit,
     role,
     excludeRole,
@@ -34,6 +36,8 @@ const getUsersWithFilters = async (
     registerApproved,
     hallRegisterApproved,
   } = params;
+
+  
 
   const andConditions: Prisma.UserWhereInput[] = [];
 
@@ -47,11 +51,35 @@ const getUsersWithFilters = async (
     });
   }
 
-  if (department) {
+  if (department && department.toLowerCase() !== "all") {
     andConditions.push({
       OthersInfo: { Department: { contains: department, mode: "insensitive" } },
     });
   }
+
+ if (notDepartment === "not-null") {
+  andConditions.push({
+    OthersInfo: {
+      is: {
+        Department: {
+          not: null,
+        },
+      },
+    },
+  });
+}
+
+if (notDepartment === "null") {
+  andConditions.push({
+    OthersInfo: {
+      is: {
+        Department: null,
+      },
+    },
+  });
+}
+
+
 
   if (unit && unit.toLowerCase() !== "all") {
     andConditions.push({ unit });
@@ -99,6 +127,9 @@ const getUsersWithFilters = async (
   }
 
   const whereConditions: Prisma.UserWhereInput = { AND: andConditions };
+ 
+
+ 
 
   const data = await prisma.user.findMany({
     where: whereConditions,
