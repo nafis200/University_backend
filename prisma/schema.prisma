@@ -184,6 +184,7 @@ model Approved {
   facultyApproved  Boolean  @default(false)
   deanApproved     Boolean  @default(false)
   registerApproved Boolean  @default(false)
+  medicalApproved  Boolean  @default(false)
   hallRegisterApproved Boolean @default(false)
   status           Boolean  @default(false) // general status
 
@@ -339,6 +340,7 @@ enum UserRole {
   DEAN
   REGISTER
   HALL_REGISTER
+  MEDICAL
 }
 
 
