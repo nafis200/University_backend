@@ -13,6 +13,7 @@ interface IUserFilterRequest {
   deanApproved?: string | boolean;
   registerApproved?: string | boolean;
   hallRegisterApproved?: string | boolean;
+  medicalApproved?:string | boolean;
   role?: string;
   excludeRole?: string;
 }
@@ -35,6 +36,7 @@ const getUsersWithFilters = async (
     deanApproved,
     registerApproved,
     hallRegisterApproved,
+    medicalApproved
   } = params;
 
   
@@ -121,6 +123,12 @@ if (notDepartment === "null") {
   const hallVal = parseBooleanStrict(hallRegisterApproved);
   if (hallVal !== undefined)
     approvalWhere.hallRegisterApproved = { equals: hallVal };
+
+  const medicalVal = parseBooleanStrict(medicalApproved);
+  if (medicalVal !== undefined) {
+    approvalWhere.medicalApproved = { equals: medicalVal };
+}
+
 
   if (Object.keys(approvalWhere).length > 0) {
     andConditions.push({ Approved: approvalWhere });

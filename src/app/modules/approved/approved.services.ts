@@ -8,6 +8,7 @@ const upsertApproval = async (payload: {
   deanApproved?: boolean;
   registerApproved?: boolean;
   hallRegisterApproved?: boolean;
+  medicalApproved?:boolean;
   status?: boolean;
 }) => {
   const data = payload;
@@ -34,6 +35,7 @@ const upsertApproval = async (payload: {
       deanApproved: data.deanApproved,
       registerApproved: data.registerApproved,
       hallRegisterApproved: data.hallRegisterApproved,
+      medicalApproved:data.medicalApproved,
       status: data.status,
     }).filter(([_, value]) => value === true || value === false) // allow boolean toggle
   );
@@ -48,6 +50,7 @@ const upsertApproval = async (payload: {
       deanApproved: data.deanApproved ?? false,
       registerApproved: data.registerApproved ?? false,
       hallRegisterApproved: data.hallRegisterApproved ?? false,
+      medicalApproved: data.medicalApproved ?? false,
       status: data.status ?? false,
     },
   });
