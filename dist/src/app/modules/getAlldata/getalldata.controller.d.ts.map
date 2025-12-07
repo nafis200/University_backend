@@ -1,1 +1,1 @@
-{"version":3,"file":"getalldata.controller.d.ts","sourceRoot":"","sources":["../../../../../src/app/modules/getAlldata/getalldata.controller.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,YAAY,EAAE,MAAM,SAAS,CAAC;AAM1D,eAAO,MAAM,cAAc,oEAgD1B,CAAC"}
+{"version":3,"file":"getalldata.controller.d.ts","sourceRoot":"","sources":["../../../../../src/app/modules/getAlldata/getalldata.controller.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,YAAY,EAAE,MAAM,SAAS,CAAC;AAM1D,eAAO,MAAM,cAAc,oEAkD1B,CAAC"}

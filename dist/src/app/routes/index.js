@@ -19,6 +19,8 @@ const documents_route_1 = require("../modules/documents/documents.route");
 const excel_route_1 = require("../modules/excelFile/excel.route");
 const googleDrive_route_1 = require("../modules/googleDrive/googleDrive.route");
 const notices_route_1 = require("../modules/notices/notices.route");
+const otherNotice_route_1 = require("../modules/othersNotice/otherNotice.route");
+const departmentStatus_route_1 = require("../modules/departmentStatus/departmentStatus.route");
 const router = express_1.default.Router();
 const moduleRoutes = [
     {
@@ -80,6 +82,14 @@ const moduleRoutes = [
     {
         path: '/exam-notice',
         route: notices_route_1.ExamRoutes
+    },
+    {
+        path: '/others-notice',
+        route: otherNotice_route_1.OthersAnnouncementRoutes
+    },
+    {
+        path: '/department-status',
+        route: departmentStatus_route_1.deparmentStatusRoutes
     },
 ];
 moduleRoutes.forEach(route => router.use(route.path, route.route));

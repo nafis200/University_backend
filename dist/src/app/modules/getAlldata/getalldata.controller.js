@@ -10,7 +10,7 @@ const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const getalldata_services_1 = require("./getalldata.services");
 exports.getUsersByUnit = (0, catchAsync_1.default)(async (req, res, next) => {
     const decodedUser = req.user;
-    const { searchTerm, department, notDepartment, page, limit, adminApproved, facultyApproved, deanApproved, registerApproved, hallRegisterApproved, role, unit, excludeRole, } = req.query;
+    const { searchTerm, department, notDepartment, page, limit, adminApproved, facultyApproved, deanApproved, registerApproved, hallRegisterApproved, medicalApproved, role, unit, excludeRole, } = req.query;
     const users = await getalldata_services_1.UserServices.getUsersWithFilters({
         searchTerm: searchTerm,
         department: department,
@@ -21,6 +21,7 @@ exports.getUsersByUnit = (0, catchAsync_1.default)(async (req, res, next) => {
         deanApproved: deanApproved,
         registerApproved: registerApproved,
         hallRegisterApproved: hallRegisterApproved,
+        medicalApproved: medicalApproved,
         role: role,
         excludeRole: excludeRole,
     }, {

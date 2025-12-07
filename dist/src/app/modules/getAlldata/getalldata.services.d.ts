@@ -9,6 +9,7 @@ interface IUserFilterRequest {
     deanApproved?: string | boolean;
     registerApproved?: string | boolean;
     hallRegisterApproved?: string | boolean;
+    medicalApproved?: string | boolean;
     role?: string;
     excludeRole?: string;
 }
@@ -133,6 +134,7 @@ export declare const UserServices: {
                 deanApproved: boolean;
                 registerApproved: boolean;
                 hallRegisterApproved: boolean;
+                medicalApproved: boolean;
             } | null;
             Document: {
                 gstApplicationId: string;

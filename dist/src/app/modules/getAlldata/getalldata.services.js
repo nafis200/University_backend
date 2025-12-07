@@ -9,7 +9,7 @@ const client_1 = require("@prisma/client");
 const paginationHelper_1 = require("../../../helpars/paginationHelper");
 const getUsersWithFilters = async (params, options) => {
     const { page, limit, skip } = paginationHelper_1.paginationHelper.calculatePagination(options);
-    const { searchTerm, department, notDepartment, unit, role, excludeRole, adminApproved, facultyApproved, deanApproved, registerApproved, hallRegisterApproved, } = params;
+    const { searchTerm, department, notDepartment, unit, role, excludeRole, adminApproved, facultyApproved, deanApproved, registerApproved, hallRegisterApproved, medicalApproved } = params;
     const andConditions = [];
     // Search
     if (searchTerm) {
@@ -85,6 +85,10 @@ const getUsersWithFilters = async (params, options) => {
     const hallVal = parseBooleanStrict(hallRegisterApproved);
     if (hallVal !== undefined)
         approvalWhere.hallRegisterApproved = { equals: hallVal };
+    const medicalVal = parseBooleanStrict(medicalApproved);
+    if (medicalVal !== undefined) {
+        approvalWhere.medicalApproved = { equals: medicalVal };
+    }
     if (Object.keys(approvalWhere).length > 0) {
         andConditions.push({ Approved: approvalWhere });
     }

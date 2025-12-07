@@ -6,6 +6,7 @@ export declare const ApprovedServices: {
         deanApproved?: boolean;
         registerApproved?: boolean;
         hallRegisterApproved?: boolean;
+        medicalApproved?: boolean;
         status?: boolean;
     }) => Promise<{
         message: string;
@@ -18,6 +19,7 @@ export declare const ApprovedServices: {
             deanApproved: boolean;
             registerApproved: boolean;
             hallRegisterApproved: boolean;
+            medicalApproved: boolean;
         };
     }>;
 };
