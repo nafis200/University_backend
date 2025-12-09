@@ -15,7 +15,18 @@ const upsertOthersInfo = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
+const RoleUpdatedInfo = catchAsync(async (req: Request, res: Response) => {
+  const result = await OthersInfoServices.upsertOthersInfo(req.body);
+
+  sendResponse(res, {
+    status: httpStatus.OK,
+    success: true,
+    message: "Role updated SuccessFully!",
+    data: result.data,
+  });
+});
 
 export const OthersInfoController = {
   upsertOthersInfo,
+  RoleUpdatedInfo
 };

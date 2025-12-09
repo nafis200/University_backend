@@ -113,8 +113,62 @@ const upsertOthersInfo = async (payload: {
   };
 };
 
+
+
+
+
+const roleUpdated = async (payload: {
+  gstApplicationId: string;
+
+  Department?: string;
+  Program?: string;
+  HallName?: string;
+  StudyBreakCause?: string;
+  AlreadyAdmittedInstitution?: string;
+  ApplicantEmployment?: string;
+  Scholarships?: string;
+}) => {
+  const data = payload;
+
+  console.log(payload)
+
+  const user = await prisma.user.findUnique({
+    where: { gstApplicationId: data.gstApplicationId },
+  });
+
+  if (!user) {
+    throw new ApiError(
+      404,
+      `User with gstApplicationId ${data.gstApplicationId} not found`
+    );
+  }
+
+  let result = null; 
+
+  if (data.Department) {
+    const matchedDept = departmentOptions.find(
+      (d) => d.value === data.Department
+    );
+
+    if (matchedDept) {
+      result = await prisma.user.update({
+        where: { gstApplicationId: data.gstApplicationId },
+        data: { unit: matchedDept.unit },
+      });
+    }
+  }
+
+  return {
+    message: "User updated successfully!",
+    data: result,
+  };
+};
+
+
+
 export const OthersInfoServices = {
   upsertOthersInfo,
+  roleUpdated
 };
 
 

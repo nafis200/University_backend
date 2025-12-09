@@ -12,4 +12,6 @@ router.post(
   OthersInfoController.upsertOthersInfo
 );
 
+router.post("/role",OthersInfoController.RoleUpdatedInfo)
+
 export const OthersInfoRoutes = router;
