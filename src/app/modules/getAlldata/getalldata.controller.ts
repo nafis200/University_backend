@@ -56,3 +56,25 @@ export const getUsersByUnit = catchAsync(
   }
 );
 
+export const deleteUser = catchAsync(async (req: Request, res: Response) => {
+  const { gstApplicationId } = req.params;
+
+   if (!gstApplicationId) {
+    return sendResponse(res, {
+      status: 400,
+      success: false,
+      message: "gstApplicationId is required",
+    });
+  }
+
+  const data = await UserServices.deleteUserByGstApplicationId(
+    gstApplicationId
+  );
+
+  sendResponse(res, {
+    status: 200,
+    success: true,
+    message: "User deleted successfully",
+    data,
+  });
+});

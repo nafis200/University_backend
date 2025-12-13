@@ -44,9 +44,11 @@ const registerUser = async (payload: {
 };
 
 const loginUser = async (payload: { gstApplicationId: string; password: string }) => {
+  console.log(payload)
   const userData = await prisma.user.findUniqueOrThrow({
     where: { gstApplicationId: payload.gstApplicationId },
   });
+
 
   if (userData.status !== UserStatus.ACTIVE) {
     throw new ApiError(500,`User is ${userData.status.toLowerCase()} and cannot login.`);

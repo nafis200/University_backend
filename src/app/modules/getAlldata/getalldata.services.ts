@@ -164,4 +164,25 @@ if (notDepartment === "null") {
   return { meta: { page, limit, total }, data };
 };
 
-export const UserServices = { getUsersWithFilters };
+const deleteUserByGstApplicationId = async (gstApplicationId: string) => {
+  return await prisma.$transaction(async (tx) => {
+    await tx.personalInfo.deleteMany({ where: { gstApplicationId } });
+    await tx.guardian.deleteMany({ where: { gstApplicationId } });
+    await tx.address.deleteMany({ where: { gstApplicationId } });
+    await tx.educationalInfo.deleteMany({ where: { gstApplicationId } });
+    await tx.othersInfo.deleteMany({ where: { gstApplicationId } });
+    await tx.approved.deleteMany({ where: { gstApplicationId } });
+    await tx.document.deleteMany({ where: { gstApplicationId } });
+    await tx.omrResult.deleteMany({ where: { gstApplicationId } });
+    await tx.studentRawResults.deleteMany({ where: { gstApplicationId } });
+    await tx.hscMarks.deleteMany({ where: { gstApplicationId } });
+    await tx.hscSummary.deleteMany({ where: { gstApplicationId } });
+
+ 
+    const user = await tx.user.delete({ where: { gstApplicationId } });
+    return user;
+  });
+};
+
+
+export const UserServices = { getUsersWithFilters,deleteUserByGstApplicationId };

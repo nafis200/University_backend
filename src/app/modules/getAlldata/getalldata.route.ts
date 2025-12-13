@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { getUsersByUnit } from "./getalldata.controller";
+import { deleteUser, getUsersByUnit } from "./getalldata.controller";
 
 
 
 const router = Router();
 
 router.get("/fetch", getUsersByUnit);
+router.delete("/delete/:gstApplicationId", deleteUser);
 
 export const AllDataRoutes = router;
 
