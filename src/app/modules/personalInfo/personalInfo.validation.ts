@@ -14,6 +14,11 @@ export const personalInfoSchema = z.object({
   Religion: z.string().min(1, "Religion is required"),
   Caste: z.string().nullable().optional(),
   Nationality: z.string().min(1, "Nationality is required"),
-  PhoneNumber: z.string().min(1, "Mobile number is required"),
+  PhoneNumber: z
+  .string()
+  .regex(
+    /^(?:\+8801|01)[3-9]\d{8}$/,
+    "Please enter a valid mobile number"
+  ),
   Email: z.string().email("Invalid email format"),
 });
