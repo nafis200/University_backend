@@ -340,6 +340,16 @@ model OthersAnnouncement {
   updatedAt DateTime @updatedAt
 }
 
+model ComplainApplication {
+  id               Int     @id @default(autoincrement())
+  gstApplicationId String
+  complain         String
+  status           Boolean @default(false)
+
+  @@map("ComplainApplication")
+}
+
+
 enum UserRole {
   STUDENTS
   ADMIN

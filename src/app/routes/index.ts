@@ -16,6 +16,7 @@ import { GoogleDriveRoutes } from '../modules/googleDrive/googleDrive.route';
 import { ExamRoutes } from '../modules/notices/notices.route';
 import { OthersAnnouncementRoutes } from '../modules/othersNotice/otherNotice.route';
 import { deparmentStatusRoutes } from '../modules/departmentStatus/departmentStatus.route';
+import { ComplainRoutes } from '../modules/Complain/complain.route';
 
 const router = express.Router();
 
@@ -88,6 +89,10 @@ const moduleRoutes = [
     {
         path: '/department-status',
         route: deparmentStatusRoutes  
+    },
+    {
+        path: '/info',
+        route: ComplainRoutes  
     },
 ];
 
