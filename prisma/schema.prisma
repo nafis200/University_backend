@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,60 +7,59 @@ datasource db {
 }
 
 model User {
-  gstApplicationId  String     @id @default(uuid()) 
+  gstApplicationId  String             @id @default(uuid())
   password          String
   role              UserRole
-  status            UserStatus @default(ACTIVE)
-  unit              String     @default("A") 
-  faculty           String?    
-  personalInfo      PersonalInfo? 
+  status            UserStatus         @default(ACTIVE)
+  unit              String             @default("A")
+  faculty           String?
+  personalInfo      PersonalInfo?
   Guardian          Guardian?
   EducationalInfo   EducationalInfo?
   Address           Address?
-  OthersInfo        OthersInfo? 
+  OthersInfo        OthersInfo?
   Approved          Approved?
   Document          Document?
   OmrResult         OmrResult?
   StudentRawResults StudentRawResults?
   HscMarks          HscMarks?
   HscSummary        HscSummary?
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  DateApplication   DateApplication?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 
   @@map("users")
 }
 
 model PersonalInfo {
-  id               String   @id @default(uuid())
-  gstApplicationId String   @unique
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
-  Name             String?
-  NAME_BN          String?
-  Father           String?
-  Mother           String?
-  Dob              String?
-  Gender           String?
-  BloodGroup       String?
-  MaritalStatus    String?
-  Religion         String?
-  Caste            String?
-  Nationality      String?
-  PhoneNumber      String?
-  Email            String?
+  Name          String?
+  NAME_BN       String?
+  Father        String?
+  Mother        String?
+  Dob           String?
+  Gender        String?
+  BloodGroup    String?
+  MaritalStatus String?
+  Religion      String?
+  Caste         String?
+  Nationality   String?
+  PhoneNumber   String?
+  Email         String?
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("personal_info")
 }
 
-
-
 model Guardian {
-  id                    String   @id @default(uuid())  
-  gstApplicationId      String   @unique                 
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
   GuardianName          String?
   GuardianOccupation    String?
@@ -76,31 +74,31 @@ model Guardian {
   GuardianNID           String?
   GuardianPhone         String?
 
-  LegalGuardianName          String?
-  LegalGuardianOccupation    String?
-  LegalGuardianIncome        String?
-  LegalGuardianRelation      String?
-  LegalGuardianVillage       String?
-  LegalGuardianPostOffice    String?
-  LegalGuardianPostCode      String?
-  LegalGuardianThana         String?
-  LegalGuardianDistrict      String?
-  LegalGuardianCountry       String?
-  LegalGuardianNID           String?
-  LegalGuardianPhone         String?
+  LegalGuardianName       String?
+  LegalGuardianOccupation String?
+  LegalGuardianIncome     String?
+  LegalGuardianRelation   String?
+  LegalGuardianVillage    String?
+  LegalGuardianPostOffice String?
+  LegalGuardianPostCode   String?
+  LegalGuardianThana      String?
+  LegalGuardianDistrict   String?
+  LegalGuardianCountry    String?
+  LegalGuardianNID        String?
+  LegalGuardianPhone      String?
 
-  LocalGuardianName          String?
-  LocalGuardianRelation      String?
-  LocalGuardianVillage       String?
-  LocalGuardianPostOffice    String?
-  LocalGuardianPostCode      String?
-  LocalGuardianThana         String?
-  LocalGuardianDistrict      String?
-  LocalGuardianCountry       String?
-  LocalGuardianNID           String?
-  LocalGuardianPhone         String?
+  LocalGuardianName       String?
+  LocalGuardianRelation   String?
+  LocalGuardianVillage    String?
+  LocalGuardianPostOffice String?
+  LocalGuardianPostCode   String?
+  LocalGuardianThana      String?
+  LocalGuardianDistrict   String?
+  LocalGuardianCountry    String?
+  LocalGuardianNID        String?
+  LocalGuardianPhone      String?
 
-  user  User @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -108,230 +106,239 @@ model Guardian {
   @@map("guardians")
 }
 
-
 model Address {
-  id               String   @id @default(uuid())
-  gstApplicationId String   @unique
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
-  Village          String?
-  PostOffice       String?
-  PostCode         String?
-  Thana            String?
-  District         String?
-  Country          String?
-  NID              String?
-  PresentAddress   String?
+  Village        String?
+  PostOffice     String?
+  PostCode       String?
+  Thana          String?
+  District       String?
+  Country        String?
+  NID            String?
+  PresentAddress String?
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("addresses")
 }
 
 model EducationalInfo {
-  id               String   @id @default(uuid())
-  gstApplicationId String   @unique
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
-  SSCBoard         String?
-  SSCInstitution   String?
-  SSCYear          String?
-  SSCRoll          String?
-  SSCGpa           String?
-  SSCSubject       String?
+  SSCBoard       String?
+  SSCInstitution String?
+  SSCYear        String?
+  SSCRoll        String?
+  SSCGpa         String?
+  SSCSubject     String?
 
-  HSCBoard         String?
-  HSCInstitution   String?
-  HSCYear          String?
-  HSCRoll          String?
-  HSCGpa           String?
-  HSCSubject       String?
+  HSCBoard       String?
+  HSCInstitution String?
+  HSCYear        String?
+  HSCRoll        String?
+  HSCGpa         String?
+  HSCSubject     String?
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("educational_info")
 }
 
 model OthersInfo {
-  id                  String   @id @default(uuid())
-  gstApplicationId    String   @unique
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
-  Department          String? 
-  Program             String?
-  HallName            String?
-  StudyBreakCause     String?
+  Department                 String?
+  Program                    String?
+  HallName                   String?
+  StudyBreakCause            String?
   AlreadyAdmittedInstitution String?
-  ApplicantEmployment String?
-  Scholarships        String?
+  ApplicantEmployment        String?
+  Scholarships               String?
 
-  user                User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("others_info")
 }
 
-
 model Approved {
-  id               Int      @id @default(autoincrement())
-  gstApplicationId String   @unique
-  adminApproved    Boolean  @default(false)
-  facultyApproved  Boolean  @default(false)
-  deanApproved     Boolean  @default(false)
-  registerApproved Boolean  @default(false)
-  medicalApproved  Boolean  @default(false)
+  id                   Int     @id @default(autoincrement())
+  gstApplicationId     String  @unique
+  adminApproved        Boolean @default(false)
+  facultyApproved      Boolean @default(false)
+  deanApproved         Boolean @default(false)
+  registerApproved     Boolean @default(false)
+  medicalApproved      Boolean @default(false)
   hallRegisterApproved Boolean @default(false)
-  status           Boolean  @default(false) // general status
+  status               Boolean @default(false)
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
   @@map("approveds")
 }
 
 model Document {
-  id               Int      @id @default(autoincrement())
-  gstApplicationId String   @unique
-  sscMarksheet     Boolean  @default(false)
-  sscTranscript    Boolean  @default(false)
-  hscMarksheet     Boolean  @default(false)
-  hscTranscript    Boolean  @default(false)
+  id               Int     @id @default(autoincrement())
+  gstApplicationId String  @unique
+  sscMarksheet     Boolean @default(false)
+  sscTranscript    Boolean @default(false)
+  hscMarksheet     Boolean @default(false)
+  hscTranscript    Boolean @default(false)
+  nidCard          Boolean @default(false)
+  photo            Boolean @default(false)
+  gstAdmitCard     Boolean @default(false)
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
   @@map("documents")
 }
 
 model HscMarks {
-  id               String   @id @default(uuid())
-  gstApplicationId String   @unique
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
-  BanglaLG         String?
-  BanglaGP         Float?
-  BanglaMarks      Float?
+  BanglaLG    String?
+  BanglaGP    Float?
+  BanglaMarks Float?
 
-  EnglishLG        String?
-  EnglishGP        Float?
-  EnglishMarks     Float?
+  EnglishLG    String?
+  EnglishGP    Float?
+  EnglishMarks Float?
 
-  PhysicsLG        String?
-  PhysicsGP        Float?
-  PhysicsMarks     Float?
+  PhysicsLG    String?
+  PhysicsGP    Float?
+  PhysicsMarks Float?
 
-  ChemistryLG      String?
-  ChemistryGP      Float?
-  ChemistryMarks   Float?
+  ChemistryLG    String?
+  ChemistryGP    Float?
+  ChemistryMarks Float?
 
-  MathLG           String?
-  MathGP           Float?
-  MathMarks        Float?
+  MathLG    String?
+  MathGP    Float?
+  MathMarks Float?
 
-  BiologyLG        String?
-  BiologyGP        Float?
-  BiologyMarks     Float?
+  BiologyLG    String?
+  BiologyGP    Float?
+  BiologyMarks Float?
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("hsc_marks")
 }
 
 model HscSummary {
-  id               String   @id @default(uuid())
-  gstApplicationId String   @unique
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
-  HscExamName      String?
-  HscStudyGroup    String?
-  HscStudyType     String?
+  HscExamName   String?
+  HscStudyGroup String?
+  HscStudyType  String?
 
   HscTotalObtained Float?
   HscFullMarks     Float?
   HscConverted1000 Float?
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("hsc_summary")
 }
 
 model StudentRawResults {
-  id               String   @id @default(uuid())
-  gstApplicationId String   @unique
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
-  HscMarksRaw      String?
+  HscMarksRaw       String?
   HscLetterGradeRaw String?
   SscLetterGradeRaw String?
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("student_raw_results")
 }
 
 model OmrResult {
-  id               String   @id @default(uuid())
-  gstApplicationId String   @unique
+  id               String @id @default(uuid())
+  gstApplicationId String @unique
 
-  OmrPhysics       Float?
-  OmrChemistry     Float?
-  OmrMath          Float?
-  OmrBiology       Float?
-  OmrBangla        String?
-  OmrEnglish       String?
-  OmrTotal         Float?
-  OmrStatus        String?
-  Position         Int?
+  OmrPhysics   Float?
+  OmrChemistry Float?
+  OmrMath      Float?
+  OmrBiology   Float?
+  OmrBangla    String?
+  OmrEnglish   String?
+  OmrTotal     Float?
+  OmrStatus    String?
+  Position     Int?
 
-  user             User     @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
 
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("omr_results")
 }
 
 model File {
-  id           String   @id @default(cuid())  
-  fileId       String   @unique               
+  id           String   @id @default(cuid())
+  fileId       String   @unique
   title        String
   viewLink     String
   downloadLink String
-  createdAt    DateTime @default(now())      
+  createdAt    DateTime @default(now())
 }
 
 model ExamApplication {
-  id           String   @id @default(cuid())   
+  id             String   @id @default(cuid())
   applyStartDate DateTime
   applyEndDate   DateTime
-  createdAt    DateTime @default(now())       
+  createdAt      DateTime @default(now())
+}
+
+model DateApplication {
+  id               Int      @id @default(autoincrement())
+  gstApplicationId String   @unique
+  applyEndDate     DateTime @default("2025-12-24T00:00:00.000Z")
+  status           Boolean  @default(false)
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId])
+  @@map("DateApplication")
 }
 
 model ExamAnnouncement {
-  id        String   @id @default(cuid())    
+  id        String   @id @default(cuid())
   title     String
   unit      String
   examDate  DateTime
-  createdAt DateTime @default(now())        
+  createdAt DateTime @default(now())
 }
 
 model OthersAnnouncement {
-  id                     String   @id @default(cuid())
-  title                  String
-  date                   DateTime
-  createdAt              DateTime @default(now())
-  updatedAt              DateTime @updatedAt
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-
 
 enum UserRole {
   STUDENTS
@@ -342,7 +349,6 @@ enum UserRole {
   HALL_REGISTER
   MEDICAL
 }
-
 
 enum UserStatus {
   ACTIVE

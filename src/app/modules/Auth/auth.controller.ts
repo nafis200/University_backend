@@ -9,7 +9,6 @@ import config from "../../config";
 
 const registerUser = catchAsync(async (req: Request, res: Response) => {
   const result = await AuthServices.registerUser(req.body);
-
   sendResponse(res, {
     status: httpStatus.OK,
     success: true,

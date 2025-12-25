@@ -7,6 +7,9 @@ const upsertDocuments = async (payload: {
   sscTranscript?: boolean;
   hscMarksheet?: boolean;
   hscTranscript?: boolean;
+  nidCard?: boolean;
+  photo?: boolean;
+  gstAdmitCard?: boolean;
 }) => {
   const data = payload;
 
@@ -21,14 +24,17 @@ const upsertDocuments = async (payload: {
     );
   }
 
-  
+  // Update only fields that are true
   const updateData = Object.fromEntries(
     Object.entries({
       sscMarksheet: data.sscMarksheet,
       sscTranscript: data.sscTranscript,
       hscMarksheet: data.hscMarksheet,
       hscTranscript: data.hscTranscript,
-    }).filter(([_, value]) => value === true) 
+      nidCard: data.nidCard,
+      photo: data.photo,
+      gstAdmitCard: data.gstAdmitCard,
+    }).filter(([_, value]) => value === true)
   );
 
   const result = await prisma.document.upsert({
@@ -40,6 +46,9 @@ const upsertDocuments = async (payload: {
       sscTranscript: data.sscTranscript ?? false,
       hscMarksheet: data.hscMarksheet ?? false,
       hscTranscript: data.hscTranscript ?? false,
+      nidCard: data.nidCard ?? false,
+      photo: data.photo ?? false,
+      gstAdmitCard: data.gstAdmitCard ?? false,
     },
   });
 

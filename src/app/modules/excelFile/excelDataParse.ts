@@ -1,100 +1,123 @@
 import { UserRole, UserStatus } from "@prisma/client";
 
+
+const parseNullableNumber = (value: any): number | null => {
+  if (value === null || value === undefined || value === "NULL" || value === "") return null;
+  const num = Number(value);
+  return isNaN(num) ? null : num;
+};
+
+
+const parseNullableString = (value: any): string | null => {
+  if (value === null || value === undefined || value === "NULL" || value === "") return null;
+  return String(value);
+};
+
+
+const parseNullableStringNumber = (value: any): string | null => {
+  if (value === null || value === undefined || value === "NULL" || value === "") return null;
+  return String(value);
+};
+
 export const splitExcelRow = (row: any) => {
+  
   const gstApplicationId = String(row.applicant_id);
-  const password = String(row.hsc_roll); 
+  const password = String(row.hsc_roll ?? "");
+
 
   const user = {
-  gstApplicationId: gstApplicationId,
-  password: password,
-  unit: row.unit ?? "A",
-  faculty: null,
-  status: UserStatus.ACTIVE,
-  role: UserRole.STUDENTS,
-};
+    gstApplicationId,
+    password,
+    unit: parseNullableString(row.unit) ?? "A",
+    faculty: null,
+    status: UserStatus.ACTIVE,
+    role: UserRole.STUDENTS,
+  };
+
 
   const personalInfo = {
     gstApplicationId,
-    Name: row.name ?? null,
-    Father: row.fname ?? null,
-    Mother: row.mname ?? null,
-    Dob: row.dob ?? null,
-    Gender: row.gender ?? null,
+    Name: parseNullableString(row.name),
+    Father: parseNullableString(row.fname),
+    Mother: parseNullableString(row.mname),
+    Dob: parseNullableString(row.dob),
+    Gender: parseNullableString(row.gender),
   };
+
 
   const educationalInfo = {
     gstApplicationId,
-    SSCBoard: row.ssc_board ?? null,
-    SSCYear: String(row.ssc_pass_year ?? ""),
-    SSCRoll: String(row.ssc_roll ?? ""),
-    SSCGpa: String(row.ssc_gpa ?? ""),
-    HSCBoard: row.hsc_board ?? null,
-    HSCYear: String(row.hsc_pass_year ?? ""),
-    HSCRoll: String(row.hsc_roll ?? ""),
-    HSCGpa: String(row.hsc_gpa ?? ""),
-    HSCSubject: String(row.hsc_study_group ?? ""),
-    SSCSubject: String(row.ssc_study_group ?? ""),
+    SSCBoard: parseNullableString(row.ssc_board),
+    SSCYear: parseNullableString(row.ssc_pass_year),
+    SSCRoll: parseNullableString(row.ssc_roll),
+    SSCGpa: parseNullableStringNumber(row.ssc_gpa), 
+    HSCBoard: parseNullableString(row.hsc_board),
+    HSCYear: parseNullableString(row.hsc_pass_year),
+    HSCRoll: parseNullableString(row.hsc_roll),
+    HSCGpa: parseNullableStringNumber(row.hsc_gpa),  
+    HSCSubject: parseNullableString(row.hsc_study_group),
+    SSCSubject: parseNullableString(row.ssc_study_group),
   };
 
 
   const hscSummary = {
     gstApplicationId,
-    HscExamName: row.hsc_exam_name ?? null,
-    HscStudyGroup: row.hsc_study_group ?? null,
-    HscStudyType: row.hsc_study_type ?? null,
-    HscTotalObtained: row.hsc_tot_obt ?? null,
-    HscFullMarks: row.hsc_full ?? null,
-    HscConverted1000: row.hsc_conv_1000 ?? null,
+    HscExamName: parseNullableString(row.hsc_exam_name),
+    HscStudyGroup: parseNullableString(row.hsc_study_group),
+    HscStudyType: parseNullableString(row.hsc_study_type),
+    HscTotalObtained: parseNullableNumber(row.hsc_tot_obt),
+    HscFullMarks: parseNullableNumber(row.hsc_full),
+    HscConverted1000: parseNullableNumber(row.hsc_conv_1000),
   };
 
-  
+
   const hscMarks = {
     gstApplicationId,
-    BanglaLG: row.hsc_bangla_lg ?? null,
-    BanglaGP: row.hsc_bangla_gp ?? null,
-    BanglaMarks: row.hsc_bangla_marks ?? null,
+    BanglaLG: parseNullableString(row.hsc_bangla_lg),
+    BanglaGP: parseNullableNumber(row.hsc_bangla_gp),
+    BanglaMarks: parseNullableNumber(row.hsc_bangla_marks),
 
-    EnglishLG: row.hsc_english_lg ?? null,
-    EnglishGP: row.hsc_english_gp ?? null,
-    EnglishMarks: row.hsc_english_marks ?? null,
+    EnglishLG: parseNullableString(row.hsc_english_lg),
+    EnglishGP: parseNullableNumber(row.hsc_english_gp),
+    EnglishMarks: parseNullableNumber(row.hsc_english_marks),
 
-    PhysicsLG: row.hsc_physics_lg ?? null,
-    PhysicsGP: row.hsc_physics_gp ?? null,
-    PhysicsMarks: row.hsc_physics_marks ?? null,
+    PhysicsLG: parseNullableString(row.hsc_physics_lg),
+    PhysicsGP: parseNullableNumber(row.hsc_physics_gp),
+    PhysicsMarks: parseNullableNumber(row.hsc_physics_marks),
 
-    ChemistryLG: row.hsc_chemistry_lg ?? null,
-    ChemistryGP: row.hsc_chemistry_gp ?? null,
-    ChemistryMarks: row.hsc_chemistry_marks ?? null,
+    ChemistryLG: parseNullableString(row.hsc_chemistry_lg),
+    ChemistryGP: parseNullableNumber(row.hsc_chemistry_gp),
+    ChemistryMarks: parseNullableNumber(row.hsc_chemistry_marks),
 
-    MathLG: row.hsc_mathe_lg ?? null,
-    MathGP: row.hsc_mathe_gp ?? null,
-    MathMarks: row.hsc_mathe_marks ?? null,
+    MathLG: parseNullableString(row.hsc_mathe_lg),
+    MathGP: parseNullableNumber(row.hsc_mathe_gp),
+    MathMarks: parseNullableNumber(row.hsc_mathe_marks),
 
-    BiologyLG: row.hsc_biology_lg ?? null,
-    BiologyGP: row.hsc_biology_gp ?? null,
-    BiologyMarks: row.hsc_biology_marks ?? null,
+    BiologyLG: parseNullableString(row.hsc_biology_lg),
+    BiologyGP: parseNullableNumber(row.hsc_biology_gp),
+    BiologyMarks: parseNullableNumber(row.hsc_biology_marks),
   };
 
 
   const rawResults = {
     gstApplicationId,
-    HscMarksRaw: row.hsc_marks ?? null,
-    HscLetterGradeRaw: row.hsc_ltrgd ?? null,
-    SscLetterGradeRaw: row.ssc_ltrgrd ?? null,
+    HscMarksRaw: parseNullableString(row.hsc_marks),
+    HscLetterGradeRaw: parseNullableString(row.hsc_ltrgd),
+    SscLetterGradeRaw: parseNullableString(row.ssc_ltrgrd),
   };
 
 
   const omrResult = {
     gstApplicationId,
-    OmrPhysics: row.omr_physics ?? null,
-    OmrChemistry: row.omr_chemistry ?? null,
-    OmrMath: row.omr_mathe ?? null,
-    OmrBiology: row.omr_biology ?? null,
-    OmrBangla: row.omr_bangla ?? null,
-    OmrEnglish: row.omr_english ?? null,
-    OmrTotal: row.omr_total ?? null,
-    OmrStatus: row.omr_status ?? null,
-    Position: row.position ?? null,
+    OmrPhysics: parseNullableNumber(row.omr_physics),
+    OmrChemistry: parseNullableNumber(row.omr_chemistry),
+    OmrMath: parseNullableNumber(row.omr_mathe),
+    OmrBiology: parseNullableNumber(row.omr_biology),
+    OmrBangla: parseNullableNumber(row.omr_bangla),
+    OmrEnglish: parseNullableNumber(row.omr_english),
+    OmrTotal: parseNullableNumber(row.omr_total),
+    OmrStatus: parseNullableString(row.omr_status),
+    Position: parseNullableNumber(row.position),
   };
 
   return {

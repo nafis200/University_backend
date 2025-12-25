@@ -14,6 +14,7 @@ const registerUser = async (payload: {
   faculty?: string;
   role?: UserRole;   
 }) => {
+
    const existingUser = await prisma.user.findUnique({
     where: { gstApplicationId: payload.gstApplicationId },
   });

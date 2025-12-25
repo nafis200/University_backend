@@ -9,6 +9,12 @@ const router = express.Router();
 
 const upload = multer({ dest: 'uploads/' });
 
-router.post('/file', auth("ADMIN"),upload.single('file'), FileController.uploadFile);
+router.post('/file',upload.single('file'), FileController.uploadFile);
+
+router.get("/:gstApplicationId", FileController.getDateApplication);
+
+router.put("/:gstApplicationId", FileController.updateDateApplication);
+
+router.put("/update/:gstApplicationId", FileController.updateDateStatus);
 
 export const ExcelRoute = router;

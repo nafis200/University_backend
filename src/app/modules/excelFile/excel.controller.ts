@@ -16,6 +16,8 @@ const fileValidationSchema = z.object({
 
 const uploadFile = catchAsync(async (req: Request, res: Response) => {
   const file = req.file;
+  const { applyEndDate } = req.body;
+
 
   if (!file) {
     return sendResponse(res, {
@@ -35,7 +37,7 @@ const uploadFile = catchAsync(async (req: Request, res: Response) => {
     });
   }
 
-  const result = await ExcelService.uploadExcelFile(file);
+  const result = await ExcelService.uploadExcelFile(file,applyEndDate);
 
   return sendResponse(res, {
     status: httpStatus.OK,
@@ -45,6 +47,88 @@ const uploadFile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const getDateApplication = catchAsync(async (req: Request, res: Response) => {
+  const { gstApplicationId } = req.params;
+
+  if (!gstApplicationId) {
+    return sendResponse(res, {
+      status: 400,
+      success: false,
+      message: "gstApplicationId is required",
+    });
+  }
+
+  const data = await ExcelService.getDateApplicationByGstApplicationId(gstApplicationId);
+
+  if (!data) {
+    return sendResponse(res, {
+      status: 404,
+      success: false,
+      message: "DateApplication not found",
+    });
+  }
+
+  sendResponse(res, {
+    status: 200,
+    success: true,
+    message: "DateApplication fetched successfully",
+    data,
+  });
+});
+
+
+const updateDateApplication = catchAsync(async (req: Request, res: Response) => {
+  const { gstApplicationId } = req.params;
+  const { applyEndDate } = req.body;
+
+  if (!gstApplicationId || !applyEndDate) {
+    return sendResponse(res, {
+      status: 400,
+      success: false,
+      message: "gstApplicationId and applyEndDate are required",
+    });
+  }
+
+  const data = await ExcelService.updateDateApplicationByGstApplicationId(
+    gstApplicationId,
+    { applyEndDate: new Date(applyEndDate) }
+  );
+
+  sendResponse(res, {
+    status: 200,
+    success: true,
+    message: "DateApplication updated successfully",
+    data,
+  });
+});
+const updateDateStatus = catchAsync(async (req: Request, res: Response) => {
+  const { gstApplicationId } = req.params;
+  
+
+  if (!gstApplicationId) {
+    return sendResponse(res, {
+      status: 400,
+      success: false,
+      message: "gstApplicationId and applyEndDate are required",
+    });
+  }
+
+  const data = await ExcelService.updateDateApplicationStatus(
+    gstApplicationId,
+  );
+
+  sendResponse(res, {
+    status: 200,
+    success: true,
+    message: "DateApplication updated successfully",
+    data,
+  });
+});
+
 export const FileController = {
   uploadFile,
+  getDateApplication,
+  updateDateApplication,
+  updateDateStatus
 };

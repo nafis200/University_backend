@@ -46,21 +46,22 @@ export const htmlContent = (data: any): string => {
       </div>
 
       <!-- Center Title -->
-      <div class="text-center">
-        <img src="http://localhost:5000/JUSTLogo.png" width="70" />
-        <p class="font-bold mt-2" style="font-size:16px;">{যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়}</p>
-        <p>যশোর 7408, বাংলাদেশ</p>
-        <p class="font-semibold mt-2">Jashore University of Science and Technology</p>
-        <p>Jashore 7408, Bangladesh</p>
-        <p class="font-bold underline mt-2" style="font-size:18px;">{স্নাতক শিক্ষার্থী ভর্তি ফরম}</p>
-        <p class="mt-1" style="font-size:15px;">Undergraduate Students Admission Form</p>
-        <p class="font-semibold mt-2">{শিক্ষাবর্ষ (Session):} <span class="dynamic-data">20___ - 20___</span></p>
-      </div>
+    <div class="text-center">
+    <img src="https://i.postimg.cc/mDW850rq/JUSTLogo.png" width="70" />
+    
+    <p class="font-bold mt-2" style="font-size:16px;">যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়</p>
+    <p>যশোর 7408, বাংলাদেশ</p>
+    <p class="font-semibold mt-2">Jashore University of Science and Technology</p>
+    <p>Jashore 7408, Bangladesh</p>
+    <p class="font-bold underline mt-2" style="font-size:18px;">স্নাতক শিক্ষার্থী ভর্তি ফরম</p>
+    <p class="mt-1" style="font-size:15px;">Undergraduate Students Admission Form</p>
+    <p class="font-semibold mt-2">শিক্ষাবর্ষ (Session): <span class="dynamic-data">${ data.Session || "20____ to 20____"}</span></p>
+   </div>
 
       <!-- Right Info -->
       <div class="border p-2" style="width:180px; line-height:1.5; font-size:12px;">
         {ইউনিট (Unit)}: <span class="dynamic-data">${
-          data.Unit || "................................"
+          data.unit || "................................"
         }</span><br/>
         {মেধাক্রম (Merit position)}: <span class="dynamic-data">${
           data.Merit || "................................"
@@ -323,7 +324,7 @@ export const htmlContent = (data: any): string => {
   </div>
 
   <!-- Present Address -->
-  <div style="margin-bottom:28px;">
+  <div style="margin-bottom:10px;">
     ২১। বর্তমান ঠিকানা (Present address):
     <span class="dynamic-data">${
       data.PresentAddress ||
@@ -332,11 +333,11 @@ export const htmlContent = (data: any): string => {
   </div>
 
   <!-- Guardian -->
-  <div style="margin-bottom:28px;">
+  <div style="margin-bottom:10px;">
     ২২। অভিভাবকের নাম (Guardian’s name):
     <span class="dynamic-data">${
       data.GuardianName ||
-      "....................................................................................................................."
+      "......................................................................."
     }</span>
     <br />
 
@@ -531,12 +532,6 @@ export const htmlContent = (data: any): string => {
       data.LocalGuardianDistrict || "........................................."
     }</span>
     <br />
-
-    দেশ (Country):
-    <span class="dynamic-data">${
-      data.LocalGuardianCountry ||
-      "....................................................."
-    }</span>
 
     &nbsp;&nbsp; মোবাইল নম্বর (Mobile number):
     <span class="dynamic-data">${

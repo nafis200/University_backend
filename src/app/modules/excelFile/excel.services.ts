@@ -25,7 +25,10 @@ const parseExcelFile = async (filePath: string): Promise<TableData> => {
   return data;
 };
 
-const uploadExcelFile = async (file: Express.Multer.File) => {
+const uploadExcelFile = async (
+  file: Express.Multer.File,
+  applyEndDate: string
+) => {
   if (!file) throw new Error("No file provided");
 
   console.log("Parsing Excel file...");
@@ -63,7 +66,12 @@ const uploadExcelFile = async (file: Express.Multer.File) => {
 
   for (let i = 0; i < Users.length; i += batchSize) {
     const batchNumber = Math.floor(i / batchSize) + 1;
-    console.log(`Processing batch ${batchNumber} (${i + 1} - ${Math.min(i + batchSize, Users.length)})...`);
+    console.log(
+      `Processing batch ${batchNumber} (${i + 1} - ${Math.min(
+        i + batchSize,
+        Users.length
+      )})...`
+    );
 
     const batchUsers = Users.slice(i, i + batchSize);
     const batchPersonalInfos = PersonalInfos.slice(i, i + batchSize);
@@ -158,9 +166,19 @@ const uploadExcelFile = async (file: Express.Multer.File) => {
               create: { gstApplicationId: userRow.gstApplicationId },
               update: {},
             });
+            await tx.dateApplication.upsert({
+              where: { gstApplicationId: userRow.gstApplicationId },
+              create: {
+                gstApplicationId: userRow.gstApplicationId,
+                applyEndDate: new Date(applyEndDate),
+              },
+              update: {
+                applyEndDate: new Date(applyEndDate),
+              },
+            });
           }
         },
-        { timeout: 300000 } 
+        { timeout: 300000 }
       );
       console.log(`Batch ${batchNumber} completed successfully.`);
     } catch (error) {
@@ -172,6 +190,53 @@ const uploadExcelFile = async (file: Express.Multer.File) => {
   return tableData;
 };
 
+const getDateApplicationByGstApplicationId = async (gstApplicationId: string) => {
+  const dateApplication = await prisma.dateApplication.findUnique({
+    where: { gstApplicationId },
+  });
+
+  return dateApplication;
+};
+
+ const updateDateApplicationByGstApplicationId = async (
+  gstApplicationId: string,
+  updateData: { applyEndDate?: Date }
+) => {
+  const updatedDateApplication = await prisma.dateApplication.update({
+    where: { gstApplicationId },
+    data: {
+      ...updateData,
+      status: false, 
+    },
+  });
+
+  return updatedDateApplication;
+};
+
+
+
+const updateDateApplicationStatus = async (gstApplicationId: string) => {
+  try {
+    const updatedDateApplication = await prisma.dateApplication.update({
+      where: { gstApplicationId },
+      data: {
+        status: true,
+      },
+    });
+
+    return updatedDateApplication;
+  } catch (error) {
+    console.error("Failed to update status:", error);
+    return null;
+  }
+};
+
+
+
+
 export const ExcelService = {
   uploadExcelFile,
+  getDateApplicationByGstApplicationId,
+  updateDateApplicationByGstApplicationId,
+  updateDateApplicationStatus
 };
