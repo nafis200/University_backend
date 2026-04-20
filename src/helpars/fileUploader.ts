@@ -2,14 +2,15 @@ import multer from "multer"
 import path from "path"
 import fs from 'fs'
 import { v2 as cloudinary } from 'cloudinary';
+
+import config from "../app/config";
 import { ICloudinaryResponse, IFile } from "../app/interfaces/file";
 
-
 cloudinary.config({
-    cloud_name: 'dbgrq28js',
-    api_key: '173484379744282',
-    api_secret: 'eHKsVTxIOLl5oaO_BHxBQWAK3GA'
-});
+    cloud_name: config.cloudinary.cloud_name as string, 
+    api_key: config.cloudinary.cloud_api_key as string,
+    api_secret: config.cloudinary.cloud_secret_key as string
+}); 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {

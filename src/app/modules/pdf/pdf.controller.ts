@@ -7,6 +7,7 @@ import { PDfService } from "./pdf.service";
 export const generatePDF = async (req: Request, res: Response) => {
   try {
     const pdfData = req.body;
+    console.log(req.body);
     const html = htmlContent(pdfData);
     const pdfBuffer = await PDfService.generatePDFBuffer(html);
 

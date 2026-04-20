@@ -40,10 +40,15 @@ export const htmlContent = (data: any): string => {
     <!-- Top Section -->
     <div class="flex justify-between items-start">
       <!-- Left Photo -->
-      <div class="border p-2 text-center" style="width:120px; height:150px;">
-        { পাসপোর্ট সাইজের ১ কপি ছবি আঠা দিয়ে সংযুক্ত করুন }<br/>
-        (Paste a passport size photograph)
-      </div>
+     <div class="border p-2 text-center" style="width:120px; height:150px;">
+    ${
+      data?.imageUrl
+        ? `<img src="${data.imageUrl}" 
+              style="width:100%; height:100%; object-fit:contain; object-position:top;" />`
+        : `পাসপোর্ট সাইজের ১ কপি ছবি আঠা দিয়ে সংযুক্ত করুন <br/>
+         (Paste a passport size photograph)`
+    }
+    </div>
 
       <!-- Center Title -->
     <div class="text-center">
@@ -55,7 +60,7 @@ export const htmlContent = (data: any): string => {
     <p>Jashore 7408, Bangladesh</p>
     <p class="font-bold underline mt-2" style="font-size:18px;">স্নাতক শিক্ষার্থী ভর্তি ফরম</p>
     <p class="mt-1" style="font-size:15px;">Undergraduate Students Admission Form</p>
-    <p class="font-semibold mt-2">শিক্ষাবর্ষ (Session): <span class="dynamic-data">${ data.Session || "20____ to 20____"}</span></p>
+    <p class="font-semibold mt-2">শিক্ষাবর্ষ (Session): <span class="dynamic-data">${data.Session || "20____ to 20____"}</span></p>
    </div>
 
       <!-- Right Info -->

@@ -17,6 +17,7 @@ import { ExamRoutes } from '../modules/notices/notices.route';
 import { OthersAnnouncementRoutes } from '../modules/othersNotice/otherNotice.route';
 import { deparmentStatusRoutes } from '../modules/departmentStatus/departmentStatus.route';
 import { ComplainRoutes } from '../modules/Complain/complain.route';
+import { ImageRouter } from '../modules/images/images.route';
 
 const router = express.Router();
 
@@ -94,6 +95,10 @@ const moduleRoutes = [
         path: '/info',
         route: ComplainRoutes  
     },
+    {
+        path:"/image",
+        route:ImageRouter
+    }
 ];
 
 

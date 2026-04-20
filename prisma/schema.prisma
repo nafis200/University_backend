@@ -13,6 +13,7 @@ model User {
   status            UserStatus         @default(ACTIVE)
   unit              String             @default("A")
   faculty           String?
+  CloudinaryImage   CloudinaryImage[]
   personalInfo      PersonalInfo?
   Guardian          Guardian?
   EducationalInfo   EducationalInfo?
@@ -349,6 +350,20 @@ model ComplainApplication {
   @@map("ComplainApplication")
 }
 
+model CloudinaryImage {
+  id               String   @id @default(cuid())
+  gstApplicationId String   @unique 
+
+  imageUrl         String  @default("https://i.postimg.cc/x1HDrm5X/Photo-Rashel.jpg")
+
+  user User @relation(fields: [gstApplicationId], references: [gstApplicationId], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([gstApplicationId])
+  @@map("cloudinary_images")
+}
 
 enum UserRole {
   STUDENTS
