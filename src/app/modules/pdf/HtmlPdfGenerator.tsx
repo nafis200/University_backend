@@ -40,15 +40,15 @@ export const htmlContent = (data: any): string => {
     <!-- Top Section -->
     <div class="flex justify-between items-start">
       <!-- Left Photo -->
-     <div class="border p-2 text-center" style="width:120px; height:150px;">
+    <div class="border p-2 text-center" style="width:120px; height:150px;">
     ${
       data?.imageUrl
         ? `<img src="${data.imageUrl}" 
-              style="width:100%; height:100%; object-fit:contain; object-position:top;" />`
+              style="width:100%; height:100%; object-fit:cover;" />`
         : `পাসপোর্ট সাইজের ১ কপি ছবি আঠা দিয়ে সংযুক্ত করুন <br/>
          (Paste a passport size photograph)`
     }
-    </div>
+  </div>
 
       <!-- Center Title -->
     <div class="text-center">
