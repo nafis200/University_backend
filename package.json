@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "build": "prisma generate && tsc",
-  "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-  "start": "node dist/src/server.js",
-  "postinstall": "prisma generate"
-},
-
+    "build": "prisma generate && tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "start": "node dist/src/server.js",
+    "postinstall": "prisma generate"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -46,6 +45,7 @@
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.11",
     "p-limit": "^7.2.0",
+    "p-queue": "^9.1.2",
     "puppeteer": "^24.30.0",
     "uuid": "^13.0.0",
     "xlsx": "^0.18.5",

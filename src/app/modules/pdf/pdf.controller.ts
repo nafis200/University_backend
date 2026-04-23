@@ -1,27 +1,26 @@
-import { Request, Response } from "express";
+import { Request, Response } from "express"; 
 import { htmlContent } from "./HtmlPdfGenerator";
-import { PDfService } from "./pdf.service";
-
-
+import { safeGeneratePDF } from "./pdf.queue";
 
 export const generatePDF = async (req: Request, res: Response) => {
   try {
-    const pdfData = req.body;
-    console.log(req.body);
-    const html = htmlContent(pdfData);
-    const pdfBuffer = await PDfService.generatePDFBuffer(html);
+    const html = htmlContent(req.body);
+    const pdfBuffer = await safeGeneratePDF(html);
+
+    if (!pdfBuffer) {
+      return res.status(500).json({ success: false, message: "PDF generation failed" });
+    }
 
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Disposition", 'attachment; filename="AdmissionForm.pdf"');
-    res.setHeader("Content-Length", pdfBuffer.length.toString());
-
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+    
     res.send(pdfBuffer);
+    
   } catch (error) {
-    console.error("PDF Generation Error:", error);
-    res.status(500).json({
-      success: false,
-      message: "PDF generation failed",
-      error: error instanceof Error ? error.message : error,
-    });
+    console.error("PDF Controller Error:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
