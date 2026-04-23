@@ -7,7 +7,7 @@ export const generatePDFBuffer = async (html: string): Promise<Buffer> => {
   
   try {
 
-    await page.setContent(html, { waitUntil: "networkidle0", timeout: 30000 });
+    await page.setContent(html, { waitUntil: "networkidle0", timeout: 300000 });
     
     const pdf = await page.pdf({
       format: "A4",
@@ -20,3 +20,6 @@ export const generatePDFBuffer = async (html: string): Promise<Buffer> => {
     await page.close(); 
   }
 };
+
+
+// // hey -n 100 -c 20 -m POST -H "Content-Type: application/json" -D test_data.json http://localhost:5000/api/pdf/pdfreader
