@@ -16,7 +16,7 @@ app.use(express_1.default.static(path_1.default.join(__dirname, "../public")));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)({
-    origin: ["http://localhost:3000", "*"],
+    origin: ["http://localhost:3000"],
     credentials: true,
 }));
 app.get("/", (req, res) => {

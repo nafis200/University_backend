@@ -12,5 +12,14 @@ const adapter = new adapter_pg_1.PrismaPg({
 const prisma = new client_1.PrismaClient({
     adapter,
 });
+(async () => {
+    try {
+        await prisma.$executeRaw `SET statement_timeout = 60000`;
+        console.log("Statement timeout set to 60 seconds");
+    }
+    catch (error) {
+        console.error("Failed to set statement timeout:", error);
+    }
+})();
 exports.default = prisma;
 //# sourceMappingURL=prisma.js.map

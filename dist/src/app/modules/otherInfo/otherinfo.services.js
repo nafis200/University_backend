@@ -92,7 +92,32 @@ const upsertOthersInfo = async (payload) => {
         data: result,
     };
 };
+const roleUpdated = async (payload) => {
+    const data = payload;
+    console.log(payload);
+    const user = await prisma_1.default.user.findUnique({
+        where: { gstApplicationId: data.gstApplicationId },
+    });
+    if (!user) {
+        throw new ApiError_1.default(404, `User with gstApplicationId ${data.gstApplicationId} not found`);
+    }
+    let result = null;
+    if (data.Department) {
+        const matchedDept = departmentOptions.find((d) => d.value === data.Department);
+        if (matchedDept) {
+            result = await prisma_1.default.user.update({
+                where: { gstApplicationId: data.gstApplicationId },
+                data: { unit: matchedDept.unit },
+            });
+        }
+    }
+    return {
+        message: "User updated successfully!",
+        data: result,
+    };
+};
 exports.OthersInfoServices = {
     upsertOthersInfo,
+    roleUpdated
 };
 //# sourceMappingURL=otherinfo.services.js.map

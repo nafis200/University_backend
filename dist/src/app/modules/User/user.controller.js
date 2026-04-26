@@ -22,4 +22,5 @@ const createAdmin = async (req, res) => {
 exports.UserController = {
     createAdmin,
 };
+// user controller
 //# sourceMappingURL=user.controller.js.map

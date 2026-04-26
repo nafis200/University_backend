@@ -17,6 +17,7 @@ const fileValidationSchema = zod_1.z.object({
 });
 const uploadFile = (0, catchAsync_1.default)(async (req, res) => {
     const file = req.file;
+    const { applyEndDate } = req.body;
     if (!file) {
         return (0, sendResponse_1.default)(res, {
             status: http_status_1.default.BAD_REQUEST,
@@ -32,7 +33,7 @@ const uploadFile = (0, catchAsync_1.default)(async (req, res) => {
             message: 'Invalid file type! Only Excel files are allowed.',
         });
     }
-    const result = await excel_services_1.ExcelService.uploadExcelFile(file);
+    const result = await excel_services_1.ExcelService.uploadExcelFile(file, applyEndDate);
     return (0, sendResponse_1.default)(res, {
         status: http_status_1.default.OK,
         success: true,
@@ -40,7 +41,69 @@ const uploadFile = (0, catchAsync_1.default)(async (req, res) => {
         data: result,
     });
 });
+const getDateApplication = (0, catchAsync_1.default)(async (req, res) => {
+    const { gstApplicationId } = req.params;
+    if (!gstApplicationId) {
+        return (0, sendResponse_1.default)(res, {
+            status: 400,
+            success: false,
+            message: "gstApplicationId is required",
+        });
+    }
+    const data = await excel_services_1.ExcelService.getDateApplicationByGstApplicationId(gstApplicationId);
+    if (!data) {
+        return (0, sendResponse_1.default)(res, {
+            status: 404,
+            success: false,
+            message: "DateApplication not found",
+        });
+    }
+    (0, sendResponse_1.default)(res, {
+        status: 200,
+        success: true,
+        message: "DateApplication fetched successfully",
+        data,
+    });
+});
+const updateDateApplication = (0, catchAsync_1.default)(async (req, res) => {
+    const { gstApplicationId } = req.params;
+    const { applyEndDate } = req.body;
+    if (!gstApplicationId || !applyEndDate) {
+        return (0, sendResponse_1.default)(res, {
+            status: 400,
+            success: false,
+            message: "gstApplicationId and applyEndDate are required",
+        });
+    }
+    const data = await excel_services_1.ExcelService.updateDateApplicationByGstApplicationId(gstApplicationId, { applyEndDate: new Date(applyEndDate) });
+    (0, sendResponse_1.default)(res, {
+        status: 200,
+        success: true,
+        message: "DateApplication updated successfully",
+        data,
+    });
+});
+const updateDateStatus = (0, catchAsync_1.default)(async (req, res) => {
+    const { gstApplicationId } = req.params;
+    if (!gstApplicationId) {
+        return (0, sendResponse_1.default)(res, {
+            status: 400,
+            success: false,
+            message: "gstApplicationId and applyEndDate are required",
+        });
+    }
+    const data = await excel_services_1.ExcelService.updateDateApplicationStatus(gstApplicationId);
+    (0, sendResponse_1.default)(res, {
+        status: 200,
+        success: true,
+        message: "DateApplication updated successfully",
+        data,
+    });
+});
 exports.FileController = {
     uploadFile,
+    getDateApplication,
+    updateDateApplication,
+    updateDateStatus
 };
 //# sourceMappingURL=excel.controller.js.map

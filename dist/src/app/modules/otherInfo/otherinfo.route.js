@@ -10,5 +10,6 @@ const otherinfo_validation_1 = require("./otherinfo.validation");
 const otherinfo_controller_1 = require("./otherinfo.controller");
 const router = (0, express_1.Router)();
 router.post("/othersInfo", (0, validateRequest_1.default)(otherinfo_validation_1.othersInfoSchema), otherinfo_controller_1.OthersInfoController.upsertOthersInfo);
+router.post("/role", otherinfo_controller_1.OthersInfoController.RoleUpdatedInfo);
 exports.OthersInfoRoutes = router;
 //# sourceMappingURL=otherinfo.route.js.map

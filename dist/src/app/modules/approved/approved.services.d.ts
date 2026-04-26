@@ -11,9 +11,9 @@ export declare const ApprovedServices: {
     }) => Promise<{
         message: string;
         data: {
+            id: number;
             gstApplicationId: string;
             status: boolean;
-            id: number;
             adminApproved: boolean;
             facultyApproved: boolean;
             deanApproved: boolean;

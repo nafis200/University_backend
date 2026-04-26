@@ -115,5 +115,22 @@ const getUsersWithFilters = async (params, options) => {
     const total = await prisma_1.default.user.count({ where: whereConditions });
     return { meta: { page, limit, total }, data };
 };
-exports.UserServices = { getUsersWithFilters };
+const deleteUserByGstApplicationId = async (gstApplicationId) => {
+    return await prisma_1.default.$transaction(async (tx) => {
+        await tx.personalInfo.deleteMany({ where: { gstApplicationId } });
+        await tx.guardian.deleteMany({ where: { gstApplicationId } });
+        await tx.address.deleteMany({ where: { gstApplicationId } });
+        await tx.educationalInfo.deleteMany({ where: { gstApplicationId } });
+        await tx.othersInfo.deleteMany({ where: { gstApplicationId } });
+        await tx.approved.deleteMany({ where: { gstApplicationId } });
+        await tx.document.deleteMany({ where: { gstApplicationId } });
+        await tx.omrResult.deleteMany({ where: { gstApplicationId } });
+        await tx.studentRawResults.deleteMany({ where: { gstApplicationId } });
+        await tx.hscMarks.deleteMany({ where: { gstApplicationId } });
+        await tx.hscSummary.deleteMany({ where: { gstApplicationId } });
+        const user = await tx.user.delete({ where: { gstApplicationId } });
+        return user;
+    });
+};
+exports.UserServices = { getUsersWithFilters, deleteUserByGstApplicationId };
 //# sourceMappingURL=getalldata.services.js.map

@@ -70,6 +70,7 @@ const registerUser = async (payload) => {
     };
 };
 const loginUser = async (payload) => {
+    console.log(payload);
     const userData = await prisma_1.default.user.findUniqueOrThrow({
         where: { gstApplicationId: payload.gstApplicationId },
     });

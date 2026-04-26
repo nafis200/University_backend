@@ -1,9 +1,9 @@
 export declare const DeparmtentStatusServices: {
     create: (data: any) => Promise<{
+        id: string;
         gstApplicationId: string;
         createdAt: Date;
         updatedAt: Date;
-        id: string;
         Department: string | null;
         Program: string | null;
         HallName: string | null;

@@ -16,10 +16,10 @@ export declare const EducationalServices: {
     }) => Promise<{
         message: string;
         data: {
+            id: string;
             gstApplicationId: string;
             createdAt: Date;
             updatedAt: Date;
-            id: string;
             SSCBoard: string | null;
             SSCInstitution: string | null;
             SSCYear: string | null;

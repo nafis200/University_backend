@@ -1,5 +1,2 @@
-export declare const closeBrowser: () => Promise<void>;
-export declare const PDfService: {
-    generatePDFBuffer: (htmlContent: string) => Promise<Uint8Array<ArrayBufferLike>>;
-};
+export declare const generatePDFBuffer: (html: string) => Promise<Buffer>;
 //# sourceMappingURL=pdf.service.d.ts.map

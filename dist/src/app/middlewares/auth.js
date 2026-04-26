@@ -10,9 +10,9 @@ const config_1 = __importDefault(require("../config"));
 const auth = (...roles) => {
     return async (req, res, next) => {
         try {
-            const token = req.headers.authorization;
-            // if bearer come
-            // const token = req.headers.authorization?.split(" ")[1];
+            // const token = req.headers.authorization
+            const token = req.headers.authorization?.split(" ")[1];
+            console.log(token);
             if (!token) {
                 throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, "You are not authorized!");
             }

@@ -17,10 +17,10 @@ export declare const PersonalInfoServices: {
     }) => Promise<{
         message: string;
         data: {
+            id: string;
             gstApplicationId: string;
             createdAt: Date;
             updatedAt: Date;
-            id: string;
             Name: string | null;
             NAME_BN: string | null;
             Father: string | null;

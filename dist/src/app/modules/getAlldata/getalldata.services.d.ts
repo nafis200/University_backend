@@ -22,10 +22,10 @@ export declare const UserServices: {
         };
         data: ({
             personalInfo: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 Name: string | null;
                 NAME_BN: string | null;
                 Father: string | null;
@@ -41,10 +41,10 @@ export declare const UserServices: {
                 Email: string | null;
             } | null;
             Guardian: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 GuardianName: string | null;
                 GuardianOccupation: string | null;
                 GuardianMonthlyIncome: string | null;
@@ -81,10 +81,10 @@ export declare const UserServices: {
                 LocalGuardianPhone: string | null;
             } | null;
             EducationalInfo: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 SSCBoard: string | null;
                 SSCInstitution: string | null;
                 SSCYear: string | null;
@@ -99,10 +99,10 @@ export declare const UserServices: {
                 HSCSubject: string | null;
             } | null;
             Address: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 Village: string | null;
                 PostOffice: string | null;
                 PostCode: string | null;
@@ -113,10 +113,10 @@ export declare const UserServices: {
                 PresentAddress: string | null;
             } | null;
             OthersInfo: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 Department: string | null;
                 Program: string | null;
                 HallName: string | null;
@@ -126,9 +126,9 @@ export declare const UserServices: {
                 Scholarships: string | null;
             } | null;
             Approved: {
+                id: number;
                 gstApplicationId: string;
                 status: boolean;
-                id: number;
                 adminApproved: boolean;
                 facultyApproved: boolean;
                 deanApproved: boolean;
@@ -137,18 +137,21 @@ export declare const UserServices: {
                 medicalApproved: boolean;
             } | null;
             Document: {
-                gstApplicationId: string;
                 id: number;
+                gstApplicationId: string;
                 sscMarksheet: boolean;
                 sscTranscript: boolean;
                 hscMarksheet: boolean;
                 hscTranscript: boolean;
+                nidCard: boolean;
+                photo: boolean;
+                gstAdmitCard: boolean;
             } | null;
             OmrResult: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 OmrPhysics: number | null;
                 OmrChemistry: number | null;
                 OmrMath: number | null;
@@ -160,19 +163,19 @@ export declare const UserServices: {
                 Position: number | null;
             } | null;
             StudentRawResults: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 HscMarksRaw: string | null;
                 HscLetterGradeRaw: string | null;
                 SscLetterGradeRaw: string | null;
             } | null;
             HscMarks: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 BanglaLG: string | null;
                 BanglaGP: number | null;
                 BanglaMarks: number | null;
@@ -193,10 +196,10 @@ export declare const UserServices: {
                 BiologyMarks: number | null;
             } | null;
             HscSummary: {
+                id: string;
                 gstApplicationId: string;
                 createdAt: Date;
                 updatedAt: Date;
-                id: string;
                 HscExamName: string | null;
                 HscStudyGroup: string | null;
                 HscStudyType: string | null;
@@ -214,6 +217,16 @@ export declare const UserServices: {
             createdAt: Date;
             updatedAt: Date;
         })[];
+    }>;
+    deleteUserByGstApplicationId: (gstApplicationId: string) => Promise<{
+        gstApplicationId: string;
+        password: string;
+        role: import("@prisma/client").$Enums.UserRole;
+        status: import("@prisma/client").$Enums.UserStatus;
+        unit: string;
+        faculty: string | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
 };
 export {};

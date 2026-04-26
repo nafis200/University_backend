@@ -3,45 +3,45 @@ export declare const ExamServices: {
         applyStartDate: Date;
         applyEndDate: Date;
     }) => Promise<{
-        createdAt: Date;
         id: string;
-        applyStartDate: Date;
+        createdAt: Date;
         applyEndDate: Date;
+        applyStartDate: Date;
     }>;
     getAllExamApplications: () => Promise<{
-        createdAt: Date;
         id: string;
-        applyStartDate: Date;
+        createdAt: Date;
         applyEndDate: Date;
+        applyStartDate: Date;
     }[]>;
     deleteExamApplication: (id: string) => Promise<{
-        createdAt: Date;
         id: string;
-        applyStartDate: Date;
+        createdAt: Date;
         applyEndDate: Date;
+        applyStartDate: Date;
     }>;
     createExamAnnouncement: (data: {
         title: string;
         unit: string;
         examDate: Date;
     }) => Promise<{
+        id: string;
         unit: string;
         createdAt: Date;
-        id: string;
         title: string;
         examDate: Date;
     }>;
     getAllExamAnnouncements: () => Promise<{
+        id: string;
         unit: string;
         createdAt: Date;
-        id: string;
         title: string;
         examDate: Date;
     }[]>;
     deleteExamAnnouncement: (id: string) => Promise<{
+        id: string;
         unit: string;
         createdAt: Date;
-        id: string;
         title: string;
         examDate: Date;
     }>;

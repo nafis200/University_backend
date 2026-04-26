@@ -17,7 +17,17 @@ const upsertOthersInfo = (0, catchAsync_1.default)(async (req, res) => {
         data: result.data,
     });
 });
+const RoleUpdatedInfo = (0, catchAsync_1.default)(async (req, res) => {
+    const result = await otherinfo_services_1.OthersInfoServices.upsertOthersInfo(req.body);
+    (0, sendResponse_1.default)(res, {
+        status: http_status_1.default.OK,
+        success: true,
+        message: "Role updated SuccessFully!",
+        data: result.data,
+    });
+});
 exports.OthersInfoController = {
     upsertOthersInfo,
+    RoleUpdatedInfo
 };
 //# sourceMappingURL=otherinfo.controller.js.map

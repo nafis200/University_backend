@@ -8,10 +8,11 @@ const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const cloudinary_1 = require("cloudinary");
+const config_1 = __importDefault(require("../app/config"));
 cloudinary_1.v2.config({
-    cloud_name: 'dbgrq28js',
-    api_key: '173484379744282',
-    api_secret: 'eHKsVTxIOLl5oaO_BHxBQWAK3GA'
+    cloud_name: config_1.default.cloudinary.cloud_name,
+    api_key: config_1.default.cloudinary.cloud_api_key,
+    api_secret: config_1.default.cloudinary.cloud_secret_key
 });
 const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {

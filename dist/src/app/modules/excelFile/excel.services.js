@@ -55,9 +55,10 @@ const parseExcelFile = async (filePath) => {
     });
     return data;
 };
-const uploadExcelFile = async (file) => {
+const uploadExcelFile = async (file, applyEndDate) => {
     if (!file)
         throw new Error("No file provided");
+    console.log("Parsing Excel file...");
     const tableData = await parseExcelFile(file.path);
     const Users = [];
     const PersonalInfos = [];
@@ -82,204 +83,147 @@ const uploadExcelFile = async (file) => {
         });
     }
     await promises_1.default.unlink(file.path);
-    await prisma_1.default.$transaction(async (tx) => {
-        for (let i = 0; i < Users.length; i++) {
-            const userRow = Users[i];
-            const personalInfoRow = PersonalInfos[i];
-            const eduRow = EducationalInfos[i];
-            const hscSummaryRow = HscSummaries[i];
-            const hscMarksRow = HscMarksList[i];
-            const rawResultRow = RawResults[i];
-            const omrResultRow = OmrResults[i];
-            const hashedPassword = await bcrypt.hash(userRow.password, 10);
-            await tx.user.upsert({
-                where: { gstApplicationId: userRow.gstApplicationId },
-                create: {
-                    gstApplicationId: userRow.gstApplicationId,
-                    password: hashedPassword,
-                    unit: userRow.unit ?? "A",
-                    faculty: null,
-                    status: client_1.UserStatus.ACTIVE,
-                    role: client_1.UserRole.STUDENTS,
-                },
-                update: {
-                    password: hashedPassword,
-                    unit: userRow.unit ?? "A",
-                    faculty: null,
-                    status: client_1.UserStatus.ACTIVE,
-                    role: client_1.UserRole.STUDENTS,
-                },
-            });
-            await tx.personalInfo.upsert({
-                where: { gstApplicationId: personalInfoRow.gstApplicationId },
-                create: {
-                    gstApplicationId: personalInfoRow.gstApplicationId,
-                    Name: personalInfoRow.Name ?? null,
-                    Father: personalInfoRow.Father ?? null,
-                    Mother: personalInfoRow.Mother ?? null,
-                    Dob: personalInfoRow.Dob ?? null,
-                    Gender: personalInfoRow.Gender ?? null,
-                },
-                update: {
-                    Name: personalInfoRow.Name ?? null,
-                    Father: personalInfoRow.Father ?? null,
-                    Mother: personalInfoRow.Mother ?? null,
-                    Dob: personalInfoRow.Dob ?? null,
-                    Gender: personalInfoRow.Gender ?? null,
-                },
-            });
-            await tx.educationalInfo.upsert({
-                where: { gstApplicationId: eduRow.gstApplicationId },
-                create: {
-                    gstApplicationId: eduRow.gstApplicationId,
-                    SSCBoard: eduRow.SSCBoard ?? null,
-                    SSCYear: eduRow.SSCYear ?? null,
-                    SSCRoll: eduRow.SSCRoll ?? null,
-                    SSCGpa: eduRow.SSCGpa ?? null,
-                    HSCBoard: eduRow.HSCBoard ?? null,
-                    HSCYear: eduRow.HSCYear ?? null,
-                    HSCRoll: eduRow.HSCRoll ?? null,
-                    HSCGpa: eduRow.HSCGpa ?? null,
-                    HSCSubject: eduRow.HSCSubject ?? null,
-                    SSCSubject: eduRow.SSCSubject ?? null,
-                },
-                update: {
-                    SSCBoard: eduRow.SSCBoard ?? null,
-                    SSCYear: eduRow.SSCYear ?? null,
-                    SSCRoll: eduRow.SSCRoll ?? null,
-                    SSCGpa: eduRow.SSCGpa ?? null,
-                    HSCBoard: eduRow.HSCBoard ?? null,
-                    HSCYear: eduRow.HSCYear ?? null,
-                    HSCRoll: eduRow.HSCRoll ?? null,
-                    HSCGpa: eduRow.HSCGpa ?? null,
-                    HSCSubject: eduRow.HSCSubject ?? null,
-                    SSCSubject: eduRow.SSCSubject ?? null,
-                },
-            });
-            await tx.hscSummary.upsert({
-                where: { gstApplicationId: hscSummaryRow.gstApplicationId },
-                create: {
-                    gstApplicationId: hscSummaryRow.gstApplicationId,
-                    HscExamName: hscSummaryRow.HscExamName ?? null,
-                    HscStudyGroup: hscSummaryRow.HscStudyGroup ?? null,
-                    HscStudyType: hscSummaryRow.HscStudyType ?? null,
-                    HscTotalObtained: hscSummaryRow.HscTotalObtained ?? null,
-                    HscFullMarks: hscSummaryRow.HscFullMarks ?? null,
-                    HscConverted1000: hscSummaryRow.HscConverted1000 ?? null,
-                },
-                update: {
-                    HscExamName: hscSummaryRow.HscExamName ?? null,
-                    HscStudyGroup: hscSummaryRow.HscStudyGroup ?? null,
-                    HscStudyType: hscSummaryRow.HscStudyType ?? null,
-                    HscTotalObtained: hscSummaryRow.HscTotalObtained ?? null,
-                    HscFullMarks: hscSummaryRow.HscFullMarks ?? null,
-                    HscConverted1000: hscSummaryRow.HscConverted1000 ?? null,
-                },
-            });
-            await tx.hscMarks.upsert({
-                where: { gstApplicationId: hscMarksRow.gstApplicationId },
-                create: {
-                    gstApplicationId: hscMarksRow.gstApplicationId,
-                    BanglaLG: hscMarksRow.BanglaLG ?? null,
-                    BanglaGP: hscMarksRow.BanglaGP ?? null,
-                    BanglaMarks: hscMarksRow.BanglaMarks ?? null,
-                    EnglishLG: hscMarksRow.EnglishLG ?? null,
-                    EnglishGP: hscMarksRow.EnglishGP ?? null,
-                    EnglishMarks: hscMarksRow.EnglishMarks ?? null,
-                    PhysicsLG: hscMarksRow.PhysicsLG ?? null,
-                    PhysicsGP: hscMarksRow.PhysicsGP ?? null,
-                    PhysicsMarks: hscMarksRow.PhysicsMarks ?? null,
-                    ChemistryLG: hscMarksRow.ChemistryLG ?? null,
-                    ChemistryGP: hscMarksRow.ChemistryGP ?? null,
-                    ChemistryMarks: hscMarksRow.ChemistryMarks ?? null,
-                    MathLG: hscMarksRow.MathLG ?? null,
-                    MathGP: hscMarksRow.MathGP ?? null,
-                    MathMarks: hscMarksRow.MathMarks ?? null,
-                    BiologyLG: hscMarksRow.BiologyLG ?? null,
-                    BiologyGP: hscMarksRow.BiologyGP ?? null,
-                    BiologyMarks: hscMarksRow.BiologyMarks ?? null,
-                },
-                update: {
-                    BanglaLG: hscMarksRow.BanglaLG ?? null,
-                    BanglaGP: hscMarksRow.BanglaGP ?? null,
-                    BanglaMarks: hscMarksRow.BanglaMarks ?? null,
-                    EnglishLG: hscMarksRow.EnglishLG ?? null,
-                    EnglishGP: hscMarksRow.EnglishGP ?? null,
-                    EnglishMarks: hscMarksRow.EnglishMarks ?? null,
-                    PhysicsLG: hscMarksRow.PhysicsLG ?? null,
-                    PhysicsGP: hscMarksRow.PhysicsGP ?? null,
-                    PhysicsMarks: hscMarksRow.PhysicsMarks ?? null,
-                    ChemistryLG: hscMarksRow.ChemistryLG ?? null,
-                    ChemistryGP: hscMarksRow.ChemistryGP ?? null,
-                    ChemistryMarks: hscMarksRow.ChemistryMarks ?? null,
-                    MathLG: hscMarksRow.MathLG ?? null,
-                    MathGP: hscMarksRow.MathGP ?? null,
-                    MathMarks: hscMarksRow.MathMarks ?? null,
-                    BiologyLG: hscMarksRow.BiologyLG ?? null,
-                    BiologyGP: hscMarksRow.BiologyGP ?? null,
-                    BiologyMarks: hscMarksRow.BiologyMarks ?? null,
-                },
-            });
-            await tx.studentRawResults.upsert({
-                where: { gstApplicationId: rawResultRow.gstApplicationId },
-                create: {
-                    gstApplicationId: rawResultRow.gstApplicationId,
-                    HscMarksRaw: rawResultRow.HscMarksRaw ?? null,
-                    HscLetterGradeRaw: rawResultRow.HscLetterGradeRaw ?? null,
-                    SscLetterGradeRaw: rawResultRow.SscLetterGradeRaw ?? null,
-                },
-                update: {
-                    HscMarksRaw: rawResultRow.HscMarksRaw ?? null,
-                    HscLetterGradeRaw: rawResultRow.HscLetterGradeRaw ?? null,
-                    SscLetterGradeRaw: rawResultRow.SscLetterGradeRaw ?? null,
-                },
-            });
-            await tx.omrResult.upsert({
-                where: { gstApplicationId: omrResultRow.gstApplicationId },
-                create: {
-                    gstApplicationId: omrResultRow.gstApplicationId,
-                    OmrPhysics: omrResultRow.OmrPhysics ?? null,
-                    OmrChemistry: omrResultRow.OmrChemistry ?? null,
-                    OmrMath: omrResultRow.OmrMath ?? null,
-                    OmrBiology: omrResultRow.OmrBiology ?? null,
-                    OmrBangla: omrResultRow.OmrBangla ?? null,
-                    OmrEnglish: omrResultRow.OmrEnglish ?? null,
-                    OmrTotal: omrResultRow.OmrTotal ?? null,
-                    OmrStatus: omrResultRow.OmrStatus ?? null,
-                    Position: omrResultRow.Position ?? null,
-                },
-                update: {
-                    OmrPhysics: omrResultRow.OmrPhysics ?? null,
-                    OmrChemistry: omrResultRow.OmrChemistry ?? null,
-                    OmrMath: omrResultRow.OmrMath ?? null,
-                    OmrBiology: omrResultRow.OmrBiology ?? null,
-                    OmrBangla: omrResultRow.OmrBangla ?? null,
-                    OmrEnglish: omrResultRow.OmrEnglish ?? null,
-                    OmrTotal: omrResultRow.OmrTotal ?? null,
-                    OmrStatus: omrResultRow.OmrStatus ?? null,
-                    Position: omrResultRow.Position ?? null,
-                },
-            });
-            await tx.othersInfo.upsert({
-                where: { gstApplicationId: userRow.gstApplicationId },
-                create: { gstApplicationId: userRow.gstApplicationId },
-                update: {},
-            });
-            await tx.approved.upsert({
-                where: { gstApplicationId: userRow.gstApplicationId },
-                create: { gstApplicationId: userRow.gstApplicationId },
-                update: {},
-            });
-            await tx.document.upsert({
-                where: { gstApplicationId: userRow.gstApplicationId },
-                create: { gstApplicationId: userRow.gstApplicationId },
-                update: {},
-            });
+    console.log(`Total rows to process: ${Users.length}`);
+    const batchSize = 500;
+    for (let i = 0; i < Users.length; i += batchSize) {
+        const batchNumber = Math.floor(i / batchSize) + 1;
+        console.log(`Processing batch ${batchNumber} (${i + 1} - ${Math.min(i + batchSize, Users.length)})...`);
+        const batchUsers = Users.slice(i, i + batchSize);
+        const batchPersonalInfos = PersonalInfos.slice(i, i + batchSize);
+        const batchEducationalInfos = EducationalInfos.slice(i, i + batchSize);
+        const batchHscSummaries = HscSummaries.slice(i, i + batchSize);
+        const batchHscMarks = HscMarksList.slice(i, i + batchSize);
+        const batchRawResults = RawResults.slice(i, i + batchSize);
+        const batchOmrResults = OmrResults.slice(i, i + batchSize);
+        try {
+            await prisma_1.default.$transaction(async (tx) => {
+                for (let j = 0; j < batchUsers.length; j++) {
+                    const userRow = batchUsers[j];
+                    const personalInfoRow = batchPersonalInfos[j];
+                    const eduRow = batchEducationalInfos[j];
+                    const hscSummaryRow = batchHscSummaries[j];
+                    const hscMarksRow = batchHscMarks[j];
+                    const rawResultRow = batchRawResults[j];
+                    const omrResultRow = batchOmrResults[j];
+                    const hashedPassword = await bcrypt.hash(userRow.password, 10);
+                    await tx.user.upsert({
+                        where: { gstApplicationId: userRow.gstApplicationId },
+                        create: {
+                            gstApplicationId: userRow.gstApplicationId,
+                            password: hashedPassword,
+                            unit: userRow.unit ?? "A",
+                            faculty: null,
+                            status: client_1.UserStatus.ACTIVE,
+                            role: client_1.UserRole.STUDENTS,
+                        },
+                        update: {
+                            password: hashedPassword,
+                            faculty: null,
+                            status: client_1.UserStatus.ACTIVE,
+                            role: client_1.UserRole.STUDENTS,
+                        },
+                    });
+                    await tx.personalInfo.upsert({
+                        where: { gstApplicationId: personalInfoRow.gstApplicationId },
+                        create: personalInfoRow,
+                        update: personalInfoRow,
+                    });
+                    await tx.educationalInfo.upsert({
+                        where: { gstApplicationId: eduRow.gstApplicationId },
+                        create: eduRow,
+                        update: eduRow,
+                    });
+                    await tx.hscSummary.upsert({
+                        where: { gstApplicationId: hscSummaryRow.gstApplicationId },
+                        create: hscSummaryRow,
+                        update: hscSummaryRow,
+                    });
+                    await tx.hscMarks.upsert({
+                        where: { gstApplicationId: hscMarksRow.gstApplicationId },
+                        create: hscMarksRow,
+                        update: hscMarksRow,
+                    });
+                    await tx.studentRawResults.upsert({
+                        where: { gstApplicationId: rawResultRow.gstApplicationId },
+                        create: rawResultRow,
+                        update: rawResultRow,
+                    });
+                    await tx.omrResult.upsert({
+                        where: { gstApplicationId: omrResultRow.gstApplicationId },
+                        create: omrResultRow,
+                        update: omrResultRow,
+                    });
+                    await tx.othersInfo.upsert({
+                        where: { gstApplicationId: userRow.gstApplicationId },
+                        create: { gstApplicationId: userRow.gstApplicationId },
+                        update: {},
+                    });
+                    await tx.approved.upsert({
+                        where: { gstApplicationId: userRow.gstApplicationId },
+                        create: { gstApplicationId: userRow.gstApplicationId },
+                        update: {},
+                    });
+                    await tx.document.upsert({
+                        where: { gstApplicationId: userRow.gstApplicationId },
+                        create: { gstApplicationId: userRow.gstApplicationId },
+                        update: {},
+                    });
+                    await tx.dateApplication.upsert({
+                        where: { gstApplicationId: userRow.gstApplicationId },
+                        create: {
+                            gstApplicationId: userRow.gstApplicationId,
+                            applyEndDate: new Date(applyEndDate),
+                        },
+                        update: {
+                            applyEndDate: new Date(applyEndDate),
+                        },
+                    });
+                }
+            }, { timeout: 300000 });
+            console.log(`Batch ${batchNumber} completed successfully.`);
         }
-    });
+        catch (error) {
+            console.error(`Batch ${batchNumber} failed:`, error);
+        }
+    }
+    console.log("All batches processed.");
     return tableData;
+};
+const getDateApplicationByGstApplicationId = async (gstApplicationId) => {
+    const dateApplication = await prisma_1.default.dateApplication.findUnique({
+        where: { gstApplicationId },
+    });
+    return dateApplication;
+};
+const updateDateApplicationByGstApplicationId = async (gstApplicationId, updateData) => {
+    const updatedDateApplication = await prisma_1.default.dateApplication.update({
+        where: { gstApplicationId },
+        data: {
+            ...updateData,
+            status: false,
+        },
+    });
+    return updatedDateApplication;
+};
+const updateDateApplicationStatus = async (gstApplicationId) => {
+    try {
+        const updatedDateApplication = await prisma_1.default.dateApplication.update({
+            where: { gstApplicationId },
+            data: {
+                status: true,
+            },
+        });
+        return updatedDateApplication;
+    }
+    catch (error) {
+        console.error("Failed to update status:", error);
+        return null;
+    }
 };
 exports.ExcelService = {
     uploadExcelFile,
+    getDateApplicationByGstApplicationId,
+    updateDateApplicationByGstApplicationId,
+    updateDateApplicationStatus
 };
 //# sourceMappingURL=excel.services.js.map

@@ -12,10 +12,10 @@ export declare const AddressServices: {
     }) => Promise<{
         message: string;
         data: {
+            id: string;
             gstApplicationId: string;
             createdAt: Date;
             updatedAt: Date;
-            id: string;
             Village: string | null;
             PostOffice: string | null;
             PostCode: string | null;

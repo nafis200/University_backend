@@ -14,11 +14,15 @@ const upsertDocuments = async (payload) => {
     if (!user) {
         throw new ApiError_1.default(404, `User with gstApplicationId ${data.gstApplicationId} not found`);
     }
+    // Update only fields that are true
     const updateData = Object.fromEntries(Object.entries({
         sscMarksheet: data.sscMarksheet,
         sscTranscript: data.sscTranscript,
         hscMarksheet: data.hscMarksheet,
         hscTranscript: data.hscTranscript,
+        nidCard: data.nidCard,
+        photo: data.photo,
+        gstAdmitCard: data.gstAdmitCard,
     }).filter(([_, value]) => value === true));
     const result = await prisma_1.default.document.upsert({
         where: { gstApplicationId: data.gstApplicationId },
@@ -29,6 +33,9 @@ const upsertDocuments = async (payload) => {
             sscTranscript: data.sscTranscript ?? false,
             hscMarksheet: data.hscMarksheet ?? false,
             hscTranscript: data.hscTranscript ?? false,
+            nidCard: data.nidCard ?? false,
+            photo: data.photo ?? false,
+            gstAdmitCard: data.gstAdmitCard ?? false,
         },
     });
     return {

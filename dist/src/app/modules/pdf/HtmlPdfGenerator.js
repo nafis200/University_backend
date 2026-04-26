@@ -43,26 +43,30 @@ const htmlContent = (data) => {
     <!-- Top Section -->
     <div class="flex justify-between items-start">
       <!-- Left Photo -->
-      <div class="border p-2 text-center" style="width:120px; height:150px;">
-        { পাসপোর্ট সাইজের ১ কপি ছবি আঠা দিয়ে সংযুক্ত করুন }<br/>
-        (Paste a passport size photograph)
-      </div>
+    <div class="border p-2 text-center" style="width:120px; height:150px;">
+    ${data?.imageUrl
+        ? `<img src="${data.imageUrl}" 
+              style="width:100%; height:100%; object-fit:cover;" />`
+        : `পাসপোর্ট সাইজের ১ কপি ছবি আঠা দিয়ে সংযুক্ত করুন <br/>
+         (Paste a passport size photograph)`}
+  </div>
 
       <!-- Center Title -->
-      <div class="text-center">
-        <img src="http://localhost:5000/JUSTLogo.png" width="70" />
-        <p class="font-bold mt-2" style="font-size:16px;">{যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়}</p>
-        <p>যশোর 7408, বাংলাদেশ</p>
-        <p class="font-semibold mt-2">Jashore University of Science and Technology</p>
-        <p>Jashore 7408, Bangladesh</p>
-        <p class="font-bold underline mt-2" style="font-size:18px;">{স্নাতক শিক্ষার্থী ভর্তি ফরম}</p>
-        <p class="mt-1" style="font-size:15px;">Undergraduate Students Admission Form</p>
-        <p class="font-semibold mt-2">{শিক্ষাবর্ষ (Session):} <span class="dynamic-data">20___ - 20___</span></p>
-      </div>
+    <div class="text-center">
+    <img src="https://i.postimg.cc/mDW850rq/JUSTLogo.png" width="70" />
+    
+    <p class="font-bold mt-2" style="font-size:16px;">যশোর বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়</p>
+    <p>যশোর 7408, বাংলাদেশ</p>
+    <p class="font-semibold mt-2">Jashore University of Science and Technology</p>
+    <p>Jashore 7408, Bangladesh</p>
+    <p class="font-bold underline mt-2" style="font-size:18px;">স্নাতক শিক্ষার্থী ভর্তি ফরম</p>
+    <p class="mt-1" style="font-size:15px;">Undergraduate Students Admission Form</p>
+    <p class="font-semibold mt-2">শিক্ষাবর্ষ (Session): <span class="dynamic-data">${data.Session || "20____ to 20____"}</span></p>
+   </div>
 
       <!-- Right Info -->
       <div class="border p-2" style="width:180px; line-height:1.5; font-size:12px;">
-        {ইউনিট (Unit)}: <span class="dynamic-data">${data.Unit || "................................"}</span><br/>
+        {ইউনিট (Unit)}: <span class="dynamic-data">${data.unit || "................................"}</span><br/>
         {মেধাক্রম (Merit position)}: <span class="dynamic-data">${data.Merit || "................................"}</span><br/>
         {ক্লাস রোল (Class roll)}: <span class="dynamic-data">${data.ClassRoll || "................................"}</span><br/>
         {শিক্ষাবর্ষ (Session)}: <span class="dynamic-data">${data.Session || "................................"}</span><br/>
@@ -261,17 +265,17 @@ const htmlContent = (data) => {
   </div>
 
   <!-- Present Address -->
-  <div style="margin-bottom:28px;">
+  <div style="margin-bottom:10px;">
     ২১। বর্তমান ঠিকানা (Present address):
     <span class="dynamic-data">${data.PresentAddress ||
         "........................................................................................................................................................................"}</span>
   </div>
 
   <!-- Guardian -->
-  <div style="margin-bottom:28px;">
+  <div style="margin-bottom:10px;">
     ২২। অভিভাবকের নাম (Guardian’s name):
     <span class="dynamic-data">${data.GuardianName ||
-        "....................................................................................................................."}</span>
+        "......................................................................."}</span>
     <br />
 
     পেশা (Occupation):
@@ -405,10 +409,6 @@ const htmlContent = (data) => {
     &nbsp;&nbsp; জেলা (District):
     <span class="dynamic-data">${data.LocalGuardianDistrict || "........................................."}</span>
     <br />
-
-    দেশ (Country):
-    <span class="dynamic-data">${data.LocalGuardianCountry ||
-        "....................................................."}</span>
 
     &nbsp;&nbsp; মোবাইল নম্বর (Mobile number):
     <span class="dynamic-data">${data.LocalGuardianPhone ||

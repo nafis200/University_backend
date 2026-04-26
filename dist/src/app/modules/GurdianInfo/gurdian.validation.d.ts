@@ -25,15 +25,5 @@ export declare const guardianSchema: z.ZodObject<{
     LegalGuardianCountry: z.ZodString;
     LegalGuardianNID: z.ZodString;
     LegalGuardianPhone: z.ZodString;
-    LocalGuardianName: z.ZodOptional<z.ZodString>;
-    LocalGuardianRelation: z.ZodOptional<z.ZodString>;
-    LocalGuardianVillage: z.ZodOptional<z.ZodString>;
-    LocalGuardianPostOffice: z.ZodOptional<z.ZodString>;
-    LocalGuardianPostCode: z.ZodOptional<z.ZodString>;
-    LocalGuardianThana: z.ZodOptional<z.ZodString>;
-    LocalGuardianDistrict: z.ZodOptional<z.ZodString>;
-    LocalGuardianCountry: z.ZodOptional<z.ZodString>;
-    LocalGuardianNID: z.ZodOptional<z.ZodString>;
-    LocalGuardianPhone: z.ZodOptional<z.ZodString>;
 }, z.core.$strip>;
 //# sourceMappingURL=gurdian.validation.d.ts.map

@@ -38,10 +38,10 @@ export declare const GuardianServices: {
     }) => Promise<{
         message: string;
         data: {
+            id: string;
             gstApplicationId: string;
             createdAt: Date;
             updatedAt: Date;
-            id: string;
             GuardianName: string | null;
             GuardianOccupation: string | null;
             GuardianMonthlyIncome: string | null;

@@ -15,7 +15,9 @@ exports.personalInfoSchema = zod_1.z.object({
     Religion: zod_1.z.string().min(1, "Religion is required"),
     Caste: zod_1.z.string().nullable().optional(),
     Nationality: zod_1.z.string().min(1, "Nationality is required"),
-    PhoneNumber: zod_1.z.string().min(1, "Mobile number is required"),
+    PhoneNumber: zod_1.z
+        .string()
+        .regex(/^(?:\+8801|01)[3-9]\d{8}$/, "Please enter a valid mobile number"),
     Email: zod_1.z.string().email("Invalid email format"),
 });
 //# sourceMappingURL=personalInfo.validation.js.map

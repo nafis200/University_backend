@@ -25,6 +25,11 @@ declare const _default: {
         email: string | undefined;
         app_pass: string | undefined;
     };
+    cloudinary: {
+        cloud_name: string | undefined;
+        cloud_api_key: string | undefined;
+        cloud_secret_key: string | undefined;
+    };
 };
 export default _default;
 //# sourceMappingURL=index.d.ts.map

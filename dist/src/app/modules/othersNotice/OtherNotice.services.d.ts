@@ -3,23 +3,23 @@ export declare const OthersAnnouncementServices: {
         title: string;
         date: string;
     }): Promise<{
+        id: string;
         createdAt: Date;
         updatedAt: Date;
-        id: string;
         date: Date;
         title: string;
     }>;
     getAll(): Promise<{
+        id: string;
         createdAt: Date;
         updatedAt: Date;
-        id: string;
         date: Date;
         title: string;
     }[]>;
     delete(id: string): Promise<{
+        id: string;
         createdAt: Date;
         updatedAt: Date;
-        id: string;
         date: Date;
         title: string;
     }>;
