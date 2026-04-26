@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: postgres:16
@@ -19,10 +21,22 @@ services:
       - "5000:5000"
     env_file:
       - .env
-    restart: always
     depends_on:
       - db
+    restart: always
     command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
+
+  frontend:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_BASE_API: http://backend:5000
+    container_name: my-frontend-container
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: always
 
 volumes:
   pgdata:
