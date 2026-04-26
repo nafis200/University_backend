@@ -20,5 +20,7 @@ EXPOSE 5000
 # dev mode rundocker compose up -d --build
 CMD ["npm", "run", "dev"]
 
+
+
 # docker compose down
 # docker compose up -d --build
